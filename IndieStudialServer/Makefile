@@ -43,7 +43,7 @@ $(NAME):	$(OBJ)
 		@echo === $@ BUILD COMPLETE ===
 
 %.debug:	%.cpp
-		$(CXX) -c $(CXXFLAGS) -o $@ $< &> debug.log
+		@$(CXX) -c $(CXXFLAGS) -o $@ $< &> debug.log
 		[ $$? -ne 0 ] && less debug.log && exit -1 || exit 0
 
 debug:		$(OBJ_DEBUG)
