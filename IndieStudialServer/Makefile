@@ -15,7 +15,7 @@ CXXFLAGS :=	-I $(INCDIR) -W -Wall -Wextra -Werror -pedantic
 #
 LINKER :=	$(CXX)
 LDFLAGS :=
-LDLIBS :=	-l RakNetDLL
+LDLIBS :=	-l RakNetDLL -l Irrlicht
 
 #
 # indie binary options
