@@ -1,9 +1,8 @@
 #
 # paths
 #
-INCDIR :=	./includes
-IRR_INCDIR :=	$(dir $(shell find /usr/include/ /mingw64/include/ -type f -name "irrlicht.h" -print -quit))
-SRCDIR :=	./sources
+INCDIR :=	./Includes
+SRCDIR :=	./Sources
 
 #
 # compilation options
@@ -21,7 +20,7 @@ LDLIBS :=	-l Irrlicht
 #
 # indie binary options
 #
-NAME :=		indie
+NAME :=		client
 SRC :=		main.cpp \
 		MenuLoop.cpp \
 		GameLoop.cpp \
@@ -41,22 +40,19 @@ OBJ_DEBUG :=	$(SRC:.cpp=.debug)
 #
 ifeq ($(firstword $(MAKECMDGOALS)), debug)
 .ONESHELL:
-else ifeq ($(firstword $(MAKECMDGOALS)), msys)
-LDFLAGS +=	-D MSYS
 endif
 
 all:		$(NAME)
 
 %.swag:		%.cpp
-		CPLUS_INCLUDE_PATH=$(IRR_INCDIR) $(CXX) -c $(CXXFLAGS) -o $@ $<
+		$(CXX) -c $(CXXFLAGS) -o $@ $<
 
 $(NAME):	$(OBJ)
 		$(LINKER) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 		@echo === $@ BUILD COMPLETE ===
 
 %.debug:	%.cpp
-		@export CPLUS_INCLUDE_PATH=$(IRR_INCDIR)
-		$(CXX) -c $(CXXFLAGS) -o $@ $< &> debug.log
+		@$(CXX) -c $(CXXFLAGS) -o $@ $< &> debug.log
 		[ $$? -ne 0 ] && less debug.log && exit -1 || exit 0
 
 debug:		$(OBJ_DEBUG)
