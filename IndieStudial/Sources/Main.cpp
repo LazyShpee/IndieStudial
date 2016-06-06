@@ -17,14 +17,29 @@ using namespace std;
 RakNet::RakPeerInterface *peerInterface;
 RakNet::Packet *packet;
 
+RakNet::SystemAddress getConnectedSystem(int index = 0);
+void sendPacket(const RakNet::BitStream& bsOut, PacketReliability reliability = RELIABLE_ORDERED);
+
+RakNet::SystemAddress getConnectedSystem(int index)
+{
+	if (peerInterface == NULL)
+		return RakNet::SystemAddress();
+	return peerInterface->GetSystemAddressFromIndex(index);
+}
+
+void sendPacket(const RakNet::BitStream& bsOut, PacketReliability reliability)
+{
+	peerInterface->Send(&bsOut, HIGH_PRIORITY, reliability, 0, getConnectedSystem(), false);
+}
+
 int main(int argc, char* argv[])
 {
 	peerInterface = RakNet::RakPeerInterface::GetInstance();
 	peerInterface->Startup(1, &RakNet::SocketDescriptor(), 1);
-
 	printf("Client is connecting to %s:%d\n", SERVER_ADDR, SERVER_PORT);
 	peerInterface->Connect(SERVER_ADDR, SERVER_PORT, 0, 0);
-
+	RakNet::BitStream bsOut;
+	bsOut.Write((RakNet::MessageID)ID_USER_PACKET_ENUM + 1);
 	// Handle messages
 	while (true)
 	{
@@ -34,8 +49,10 @@ int main(int argc, char* argv[])
 			{
 			case ID_CONNECTION_REQUEST_ACCEPTED:
 				printf("The connection to the server has been accepted.\n");
+				sendPacket(bsOut);
 				break;
 			}
+			printf("[%d]\n", packet->data[0]);
 		}
 	}
 
