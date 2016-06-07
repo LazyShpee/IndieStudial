@@ -1,21 +1,21 @@
 #
 # paths
 #
-INCDIR :=	./Includes
+INCDIRS :=	./Includes ../GlobalIncludes
 SRCDIR :=	./Sources
 
 #
 # compilation options
 #
 CXX :=		g++
-CXXFLAGS :=	-I $(INCDIR) -W -Wall -Wextra -Werror -pedantic
+CXXFLAGS :=	$(addprefix -I ,$(INCDIRS)) -W -Wall -Wextra -Werror -pedantic
 
 #
 # link options
 #
 LINKER :=	$(CXX)
 LDFLAGS :=
-LDLIBS :=	-l Irrlicht
+LDLIBS :=	-l Irrlicht -l RakNetDLL
 
 #
 # indie binary options

@@ -34,8 +34,8 @@ namespace core
     input_type const _core_keys[KEYS_COUNT];
     input_type match_irr_keys[irr::KEY_KEY_CODES_COUNT];
   public: // public attributes
-    static int inputs;
-    static int buttons;
+    static irr::u32 inputs;
+    static irr::u32 buttons;
     static irr::f32 scroll;
   public: // constructors and operators
     Receiver(void);

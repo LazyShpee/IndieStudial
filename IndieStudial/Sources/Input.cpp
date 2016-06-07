@@ -1,8 +1,8 @@
 #include "IncludeIrrlicht.hpp"
 #include <iostream>
 
-int core::Receiver::inputs = 0;
-int core::Receiver::buttons = 0;
+irr::u32 core::Receiver::inputs = 0;
+irr::u32 core::Receiver::buttons = 0;
 irr::f32 core::Receiver::scroll = 0;
 
 // _irr_keys tab will not always be hard coded
