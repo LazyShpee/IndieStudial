@@ -1,7 +1,10 @@
 #ifndef RAYZAL_HPP_
 # define RAYZAL_HPP_
 
+# include <pthread.h>
+
 # include "IncludeRaknet.hpp"
+# include "Entity.hpp"
 
 namespace rayzal
 {
@@ -40,6 +43,20 @@ namespace rayzal
   };
 
   void SendPacket(BasicPacket const *);
+
+  class ListenerThread
+  {
+    pthread_t _thread_id;
+    pthread_mutex_t _mutex;
+    BasicPacket const *_packet;
+  public:
+    ListenerThread(void);
+    ~ListenerThread(void);
+  public:
+    bool start(void);
+  private:
+    void *loop(void *args);
+  };
 }
 
 #endif // RAYZAL_HPP_

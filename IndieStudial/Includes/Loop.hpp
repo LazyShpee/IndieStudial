@@ -58,7 +58,7 @@ namespace core
     Camera *_camera;
     irr::u32 _before;
   public:
-    static std::vector<iscene::IAnimatedMeshSceneNode *> gosts;
+    static std::vector<Entity *> gosts;
   public:
     GameLoop(core::device_t *device);
     ~GameLoop(void);
