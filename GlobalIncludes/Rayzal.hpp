@@ -38,6 +38,8 @@ namespace rayzal
   {
     irr::u32 input;
   };
+
+  void SendPacket(BasicPacket const *);
 }
 
 #endif // RAYZAL_HPP_

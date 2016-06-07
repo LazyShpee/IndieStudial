@@ -67,55 +67,55 @@ namespace core
     int _loop(void);
   };
 
-  // you can stop read from here, this code will not be used
-  template <class T>
-  class LoopAllocator // vector allocator to stock every Loop derivated class
-  {
-    class Padding: public ILoop // sizeof(ILoop) is too small so..
-    {
-      char padding[sizeof(device_t *) +
-		   sizeof(std::wstring const)];
-    };
-    bool round;
-  public: // vetor use value type to call the constructors
-    typedef Padding value_type;
-  public:
-    Padding *allocate(std::size_t const) const
-    {
-      return (reinterpret_cast<Padding *>
-	      (::operator new
-	       (sizeof(MenuLoop) + sizeof(GameLoop))));
-    }
+//   // you can stop read from here, this code will not be used
+//   template <class T>
+//   class LoopAllocator // vector allocator to stock every Loop derivated class
+//   {
+//     class Padding: public ILoop // sizeof(ILoop) is too small so..
+//     {
+//       char padding[sizeof(device_t *) +
+// 		   sizeof(std::wstring const)];
+//     };
+//     bool round;
+//   public: // vetor use value type to call the constructors
+//     typedef Padding value_type;
+//   public:
+//     Padding *allocate(std::size_t const) const
+//     {
+//       return (reinterpret_cast<Padding *>
+// 	      (::operator new
+// 	       (sizeof(MenuLoop) + sizeof(GameLoop))));
+//     }
 
-    template <class _Obj, class ..._Args>
-    void construct(_Obj * const ptr, _Args &&... args)
-    {
-      this->round =! this->round;
-      if (this->round)
-	::new (reinterpret_cast<void *>(ptr))
-	    MenuLoop(std::forward<_Args>(args)...);
-      else
-	::new (reinterpret_cast<void *>(ptr))
-	    GameLoop(std::forward<_Args>(args)...);
-    }
+//     template <class _Obj, class ..._Args>
+//     void construct(_Obj * const ptr, _Args &&... args)
+//     {
+//       this->round =! this->round;
+//       if (this->round)
+// 	::new (reinterpret_cast<void *>(ptr))
+// 	    MenuLoop(std::forward<_Args>(args)...);
+//       else
+// 	::new (reinterpret_cast<void *>(ptr))
+// 	    GameLoop(std::forward<_Args>(args)...);
+//     }
 
-    template <class _Obj>
-    void destroy(_Obj * const ptr) const
-    {
-      ptr->~_Obj();
-    }
+//     template <class _Obj>
+//     void destroy(_Obj * const ptr) const
+//     {
+//       ptr->~_Obj();
+//     }
 
-    void deallocate(Padding * const ptr, std::size_t) const
-    {
-      ::operator delete(ptr);
-    }
+//     void deallocate(Padding * const ptr, std::size_t) const
+//     {
+//       ::operator delete(ptr);
+//     }
 
-  private:
-    constexpr std::size_t max_size(void) const
-    {
-      return (((std::size_t)(-1)) / sizeof(Padding));
-    }
-  };
-}
+//   private:
+//     constexpr std::size_t max_size(void) const
+//     {
+//       return (((std::size_t)(-1)) / sizeof(Padding));
+//     }
+//   };
+// }
 
 #endif /* !LOOP_HPP_ */
