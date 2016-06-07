@@ -1,7 +1,7 @@
 #include "Rayzal.cpp"
 
-rayzal::ListenerThread::ListenerThread(void)
-  : _set(true)
+rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr)
+  : _set(true), _smgr(smgr)
 {
   // INSEREZ ICI LE CODE POUR ETABLIR LA CO AVEC LE SERVER
 }

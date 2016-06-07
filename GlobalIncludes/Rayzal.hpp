@@ -48,9 +48,9 @@ namespace rayzal
   {
     pthread_t _thread_id;
     pthread_mutex_t _mutex;
-    BasicPacket const *_packet;
+    iscene::ISceneManager *_smgr;
   public:
-    ListenerThread(void);
+    ListenerThread(iscene::ISceneManager *smgr);
     ~ListenerThread(void);
   public:
     bool start(void);

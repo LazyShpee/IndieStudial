@@ -14,7 +14,6 @@ int main()
 {
   core::device_t device;
   core::Receiver receiver;
-  rayzal::ListenerThread listener;
   core::ILoop *loop[2];
   int ret;
 
@@ -28,6 +27,7 @@ int main()
   device.smgr = device.ptr->getSceneManager();
   device.guienv = device.ptr->getGUIEnvironment();
 
+  rayzal::ListenerThread listener(device.smgr);
   loop[0] = new core::GameLoop(&device);
   // loop[1] = new core::MenuLoop(&device);
   if (loop[0]->init())

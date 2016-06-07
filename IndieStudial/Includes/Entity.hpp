@@ -7,7 +7,7 @@
 # include "IncludeIrrlicht.hpp"
 # include "Rayzal.hpp"
 
-static Entity *createEntity(EntityPacket const *packet);
+// INSEREZ ICI LES TABLEAUX CONSTANTS POUR AVOIR LE NAME ET LE MESH-PATH
 
 class Entity {
 private:
@@ -19,6 +19,7 @@ private:
 public:
   Entity(std::string const & meshPath,
 	 std::string const & name, iscene::ISceneManager *smgr);
+  Entity(EntityPacket const *packet, iscene::ISceneManager *smgr);
 
   iscene::IAnimatedMesh *getMesh() const;
   iscene::IAnimatedMeshSceneNode *getNode() const;
@@ -31,7 +32,7 @@ public:
   template <class T>
   void applyPacket(T const *packet)
   {
-    // INSEREZ ICI LE CODE QUI VA SOIT CALL createEntity, this->updateEntity, ou delete this
+    // INSEREZ ICI LE CODE QUI VA SOIT CALL this->updateEntity soit ou delete this
   }
 
 private:
