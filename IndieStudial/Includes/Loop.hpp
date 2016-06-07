@@ -116,6 +116,6 @@ namespace core
 //       return (((std::size_t)(-1)) / sizeof(Padding));
 //     }
 //   };
-// }
+}
 
 #endif /* !LOOP_HPP_ */
