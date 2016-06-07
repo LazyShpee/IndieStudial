@@ -3,6 +3,7 @@
 rayzal::ListenerThread::ListenerThread(void)
   : _set(true)
 {
+  // INSEREZ ICI LE CODE POUR ETABLIR LA CO AVEC LE SERVER
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
@@ -17,6 +18,7 @@ bool rayzal::ListenerThread::start(void)
   return (this->_set);
 }
 
-void *rayzal::ListenerThread::loop(void *args)
+void *rayzal::ListenerThread::loop(void *)
 {
+  // INSEREZ ICI LE CODE DE LA BOUCLE QUI RECOIT LES PACKETS DU SERVER
 }

@@ -14,6 +14,7 @@ int main()
 {
   core::device_t device;
   core::Receiver receiver;
+  rayzal::ListenerThread listener;
   core::ILoop *loop[2];
   int ret;
 

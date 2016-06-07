@@ -1,5 +1,10 @@
 #include "Entity.hpp"
 
+Entity *createEntity(EntityPacket const *packet)
+{
+  // INSEREZ ICI LE CODE QUI TRANSFORME UNE PACKET-STRUCT EN ENTITY QUI SERA DANS core::GameLoop::gost
+}
+
 Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
 	this->mesh = smgr->getMesh(meshPath.c_str());
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
@@ -26,4 +31,9 @@ void										Entity::addWorldCollision(iscene::ISceneNodeAnimatorCollisionRespo
 
 std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> Entity::getWorldCollision() const {
 	return (this->worldCollision);
+}
+
+void Entity::updateEntity(EntityPacket const *packet)
+{
+  // INSEREZ ICI LE CODE QUI UPDATERA L'ENTITY this A PARTIR DE packet
 }

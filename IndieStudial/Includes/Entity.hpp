@@ -31,6 +31,7 @@ public:
   template <class T>
   void applyPacket(T const *packet)
   {
+    // INSEREZ ICI LE CODE QUI VA SOIT CALL createEntity, this->updateEntity, ou delete this
   }
 
 private:
