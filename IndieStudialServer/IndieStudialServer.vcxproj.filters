@@ -18,15 +18,15 @@
     <ClCompile Include="Sources\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\Peer.cpp">
+    <ClCompile Include="..\GlobalSources\Peer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Includes\Peer.hpp">
+    <ClInclude Include="Includes\Constant.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes\Constant.hpp">
+    <ClInclude Include="..\GlobalIncludes\Peer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

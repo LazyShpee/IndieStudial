@@ -69,12 +69,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)GlobalIncludes;$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\RakNet\Lib;$(SolutionDir)Lib\irrlicht-1.8.3\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Sources</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)GlobalIncludes;$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Lib\RakNet\Lib;$(SolutionDir)Lib\irrlicht-1.8.3\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Sources</SourcePath>
   </PropertyGroup>
@@ -123,12 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\GlobalSources\Peer.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
-    <ClCompile Include="Sources\Peer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GlobalIncludes\Peer.hpp" />
     <ClInclude Include="Includes\Constant.hpp" />
-    <ClInclude Include="Includes\Peer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

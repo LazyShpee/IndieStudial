@@ -8,54 +8,41 @@
 #include "BitStream.h"
 #include "RakNetTypes.h"
 #include "StringCompressor.h"
-
+#include "Peer.hpp"
 using namespace std;
 
-#define SERVER_PORT 12345
+#define SERVER_PORT 4242
 #define SERVER_ADDR "127.0.0.1"
 
-RakNet::RakPeerInterface *peerInterface;
-RakNet::Packet *packet;
+#pragma pack(push, 1)
+typedef struct {
+	RakNet::MessageID	IdPacket;
+	char				Data[20];
+	char				Zero;
+} my_packet;
+#pragma pack(pop)
 
-RakNet::SystemAddress getConnectedSystem(int index = 0);
-void sendPacket(const RakNet::BitStream& bsOut, PacketReliability reliability = RELIABLE_ORDERED);
-
-RakNet::SystemAddress getConnectedSystem(int index)
+int main(int argc, char *argv[])
 {
-	if (peerInterface == NULL)
-		return RakNet::SystemAddress();
-	return peerInterface->GetSystemAddressFromIndex(index);
-}
-
-void sendPacket(const RakNet::BitStream& bsOut, PacketReliability reliability)
-{
-	peerInterface->Send(&bsOut, HIGH_PRIORITY, reliability, 0, getConnectedSystem(), false);
-}
-
-int main(int argc, char* argv[])
-{
-	peerInterface = RakNet::RakPeerInterface::GetInstance();
-	peerInterface->Startup(1, &RakNet::SocketDescriptor(), 1);
+	Peer peer(SERVER_ADDR, SERVER_PORT);
+	RakNet::Packet *packet;
 	printf("Client is connecting to %s:%d\n", SERVER_ADDR, SERVER_PORT);
-	peerInterface->Connect(SERVER_ADDR, SERVER_PORT, 0, 0);
-	RakNet::BitStream bsOut;
-	bsOut.Write((RakNet::MessageID)ID_USER_PACKET_ENUM + 1);
+	my_packet test = { ID_USER_PACKET_ENUM, "Vomi.", 0 };
 	// Handle messages
 	while (true)
 	{
-		for (packet = peerInterface->Receive(); packet; peerInterface->DeallocatePacket(packet), packet = peerInterface->Receive())
+		for (packet = peer.receive(); packet; peer.destroyPacket(packet), packet = peer.receive())
 		{
 			switch (packet->data[0])
 			{
 			case ID_CONNECTION_REQUEST_ACCEPTED:
 				printf("The connection to the server has been accepted.\n");
-				sendPacket(bsOut);
+				peer.sendPacket(&test);
 				break;
 			}
 			printf("[%d]\n", packet->data[0]);
 		}
 	}
 
-	RakNet::RakPeerInterface::DestroyInstance(peerInterface);
 	return 0;
 }
