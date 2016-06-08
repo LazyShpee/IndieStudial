@@ -47,8 +47,9 @@ namespace rayzal
   class ListenerThread
   {
     pthread_t _thread_id;
-    pthread_mutex_t _mutex;
     iscene::ISceneManager *_smgr;
+  public:
+    static pthread_mutex_t mutex;
   public:
     ListenerThread(iscene::ISceneManager *smgr);
     ~ListenerThread(void);

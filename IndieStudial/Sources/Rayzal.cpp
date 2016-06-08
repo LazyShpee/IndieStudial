@@ -1,5 +1,7 @@
 #include "Rayzal.cpp"
 
+pthread_mutex_t rayzal::ListenerThread::mutex;
+
 rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr)
   : _set(true), _smgr(smgr)
 {
