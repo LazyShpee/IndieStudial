@@ -27,8 +27,9 @@ int main()
   device.smgr = device.ptr->getSceneManager();
   device.guienv = device.ptr->getGUIEnvironment();
 
-  rayzal::ListenerThread listener(device.smgr);
-  loop[0] = new core::GameLoop(&device);
+  rayzal::Peer peer("localhost");
+  rayzal::ListenerThread listener(device.smgr, &peer);
+  loop[0] = new core::GameLoop(&device, &peer);
   // loop[1] = new core::MenuLoop(&device);
   if (loop[0]->init())
     return (ERROR_CODE);

@@ -5,6 +5,7 @@
 
 # include "IncludeRaknet.hpp"
 # include "Entity.hpp"
+# include "Peer.hpp"
 
 namespace rayzal
 {
@@ -48,10 +49,11 @@ namespace rayzal
   {
     pthread_t _thread_id;
     iscene::ISceneManager *_smgr;
+    rayzal::Peer *_peer;
   public:
     static pthread_mutex_t mutex;
   public:
-    ListenerThread(iscene::ISceneManager *smgr);
+    ListenerThread(iscene::ISceneManager *smgr, rayzal::Peer *peer);
     ~ListenerThread(void);
   public:
     bool start(void);
