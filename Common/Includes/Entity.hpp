@@ -6,7 +6,6 @@
 
 # include "IncludeIrrlicht.hpp"
 # include "Rayzal.hpp"
-# include "Loop.hpp"
 
 struct EntityType {
 	unsigned char type;

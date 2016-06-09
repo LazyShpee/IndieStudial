@@ -60,8 +60,6 @@ namespace core
     irr::u32 _before;
     rayzal::Peer *_peer;
   public:
-    static std::vector<Entity *> gosts;
-  public:
     GameLoop(core::device_t *device, rayzal::Peer *peer);
     ~GameLoop(void);
   private:

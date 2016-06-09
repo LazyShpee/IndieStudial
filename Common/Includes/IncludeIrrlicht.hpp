@@ -11,6 +11,8 @@ namespace icore = irr::core;
 namespace ivideo = irr::video;
 namespace igui = irr::gui;
 
+# include "Entity.hpp"
+
 namespace core
 {
   enum input_type
@@ -52,6 +54,8 @@ namespace core
     iscene::ISceneManager *smgr;
     igui::IGUIEnvironment *guienv;
   };
+
+  std::vector<Entity *> EntityList;
 }
 
 #endif // INCLUDE_IRRLICHT_HPP_

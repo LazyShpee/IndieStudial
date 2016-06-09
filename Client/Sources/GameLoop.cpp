@@ -5,8 +5,6 @@
 #include "Entity.hpp"
 #include "Rayzal.hpp"
 
-std::vector<Entity *> core::GameLoop::gosts;
-
 core::GameLoop::GameLoop(device_t *device, rayzal::Peer *peer)
   : Loop(device, L"Suck My Wheels"), _peer(peer)
 {

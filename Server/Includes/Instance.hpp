@@ -9,8 +9,7 @@ namespace core
   {
     core::device_t *_device;
     irr::u32 _before;
-  public:
-    static irr::u32 input;
+    irr::u32 _input;
   public:
     Instance(core::device_t *device);
   public:

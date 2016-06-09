@@ -22,9 +22,8 @@ int main()
 
   rayzal::Peer peer(4242);
   rayzal::ListenerThread listener(&peer);
-  // while (peer.getPeer()->GetNumberOfAddresses() <
-  // 	 peer.getPeer()->getMaximumIncommingConnections())
-  //   usleep(500);
+  // while (listener.getQueue())
+  //     usleep(500);
   core::Instance instance(&device);
   if (instance.init())
     return (ERROR_CODE);

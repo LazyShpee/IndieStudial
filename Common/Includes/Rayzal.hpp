@@ -28,12 +28,15 @@ namespace rayzal
       ID_DELETE
     };
 
+#pragma pack(push, 1)
   struct BasicPacket
   {
     packet_type PacketType;
     irr::u32 uuid;
   };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
   struct EntityPacket: public BasicPacket
   {
     short EntityType;
@@ -44,11 +47,14 @@ namespace rayzal
 	float ry;
 	float rz;
   };
+#pragma pack(pop)
 
+#pragma pack(push, 1)
   struct InputPacket: public BasicPacket
   {
     irr::u32 input;
   };
+#pragma pack(pop)
 
   void SendPacket(BasicPacket const *);
 
@@ -57,6 +63,7 @@ namespace rayzal
     std::thread *_thread;
     iscene::ISceneManager *_smgr;
     rayzal::Peer *_peer;
+    int _queue;
   public:
     static std::mutex mutex;
   public:
@@ -65,6 +72,8 @@ namespace rayzal
     ~ListenerThread(void);
   private:
     void loop(void);
+  public:
+    bool getQueue(void) const;
   };
 }
 

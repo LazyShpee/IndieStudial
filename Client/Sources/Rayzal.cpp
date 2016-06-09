@@ -1,4 +1,5 @@
 #include "Rayzal.hpp"
+#include "Loop.hpp"
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -23,10 +24,10 @@ void rayzal::ListenerThread::loop(void)
       switch (packet->data[0])
 	{
 	  // INSEREZ ICI LE CODE QUI VA GERER LES ENTITIES
-	case CHAATE:
-	  CHÂÂÂÂÂTTE;
+	case :
+	  ;
 	default:
-	  omg;
+	  ;
 	}
       this->_peer->destroyPacket();
     }
