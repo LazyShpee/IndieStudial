@@ -1,6 +1,7 @@
 #include "Rayzal.hpp"
 #include "Instance.hpp"
 #include "Constants.hpp"
+#include "Player.hpp"
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -38,11 +39,11 @@ void rayzal::ListenerThread::loop(void)
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	case ID_PLAYER_INFOS:
-	  // CREATE PLAYER ENTITY
+	  // CREATE PLAYER ENTITY INTO core::Instance::PlayerList (push_back(new ...))
 	  break;
 	case ID_INPUT:
 	  rayzal::ListenerThread::mutex.lock();
-	  // SET THE NEW VALUE OF INPUT FOR THE PLAYER
+	  // SET THE NEW VALUE OF INPUT FOR THE PLAYER (iterate through PlayerList and .setInput()
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	default:

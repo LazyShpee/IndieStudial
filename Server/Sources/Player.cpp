@@ -8,6 +8,7 @@ Player::Player(std::string const & meshPath, iscene::ISceneManager *smgr) : enti
 	this->smgr = smgr;
 
 	this->_vehicle.setConfig(Vehicle::getDefaultConfig());
+	this->_vehicle.setInput(this->_input);
 
 	// Ce que charpe à rajouter
 	this->has_missile = false;
@@ -62,7 +63,7 @@ void Player::update(irr::f32 dt)
 	}
 
 	// Ce que charpe à rajouter
-	if ((core::Receiver::inputs & core::GAME_FIRE) && this->stopped_fire)
+	if ((this->_inputs & core::GAME_FIRE) && this->stopped_fire)
 		fire_blipblipblipblipblip();
 }
 
@@ -170,4 +171,9 @@ void Player::fire_blipblipblipblipblip()
 	this->_missiles.push_back(new Missile(this->entity.getNode(), this->smgr));
 	this->stopped_fire = false;
 	//MenuLoop::entities.push_back(this->_bonus);
+}
+
+void Player::setInput(irr::u32 const input)
+{
+  this->_input = input;
 }

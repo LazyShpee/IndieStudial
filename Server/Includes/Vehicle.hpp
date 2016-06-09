@@ -46,7 +46,7 @@ namespace Vehicle {
 	class Car {
 	private:
 		Config			*cfg;
-		int				inputs;
+	  irr::u32 _inputs;
 
 		float 			heading;
 		Vector::Vec2 	position;
@@ -78,6 +78,7 @@ namespace Vehicle {
 		Config			*getConfig() const;
 		void			setPosition(const Vector::Vec2 & pos);
 		void			setHeading(float heading);
+	  void setInputs(irr::u32 const inputs);
 		Vector::Vec2	getPosition() const;
 		float			getHeading() const;
 		void			calmezVous(float angle, float force);

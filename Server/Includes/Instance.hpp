@@ -1,7 +1,10 @@
 #ifndef INSTANCE_HPP_
 # define INSTANCE_HPP_
 
+# include <vector>
+
 # include "IncludeIrrlicht.hpp"
+# include "Player.hpp"
 
 namespace core
 {
@@ -9,7 +12,8 @@ namespace core
   {
     core::device_t *_device;
     irr::u32 _before;
-    irr::u32 _input;
+  public:
+    static std::vector<Player *> PlayerList;
   public:
     Instance(core::device_t *device);
   public:

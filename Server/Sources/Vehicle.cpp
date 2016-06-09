@@ -44,14 +44,14 @@ void Vehicle::Car::doPhysics(float dt) {
 	float slipAngleRear  = atan2(this->velocity_c.y + yawSpeedRear,  std::abs(this->velocity_c.x));
 
 	float tireGripFront = cfg->tireGrip;
-	float tireGripRear = cfg->tireGrip * (1.0 - !!(core::Receiver::inputs & I_EBRAKE) * (1.0 - cfg->lockGrip)); // reduce rear grip when ebrake is on
+	float tireGripRear = cfg->tireGrip * (1.0 - !!(this->_inputs & I_EBRAKE) * (1.0 - cfg->lockGrip)); // reduce rear grip when ebrake is on
 
 	float frictionForceFront_cy = GMath::clamp(-cfg->cornerStiffnessFront * slipAngleFront, -tireGripFront, tireGripFront) * axleWeightFront;
 	float frictionForceRear_cy = GMath::clamp(-cfg->cornerStiffnessRear * slipAngleRear, -tireGripRear, tireGripRear) * axleWeightRear;
 
 	//  Get amount of brake/throttle from our inputs
-	float brake = GMath::min(!!(core::Receiver::inputs & I_BRAKE) * cfg->brakeForce + !!(core::Receiver::inputs & I_EBRAKE) * cfg->eBrakeForce, cfg->brakeForce);
-	float throttle = !!(core::Receiver::inputs & I_THROTTLE) * (cfg->engineForce) - (cfg->engineForce / cfg->reverseForce) * !!(core::Receiver::inputs & I_REVERSE);
+	float brake = GMath::min(!!(this->_inputs & I_BRAKE) * cfg->brakeForce + !!(this->_inputs & I_EBRAKE) * cfg->eBrakeForce, cfg->brakeForce);
+	float throttle = !!(this->_inputs & I_THROTTLE) * (cfg->engineForce) - (cfg->engineForce / cfg->reverseForce) * !!(this->_inputs & I_REVERSE);
 
 	//  Resulting force in local car coordinates.
 	//  This is implemented as a RWD car only.
@@ -102,7 +102,7 @@ void Vehicle::Car::doPhysics(float dt) {
 void Vehicle::Car::update(float dtms) {
 	float dt = dtms;
 
-	int steerInput = !!(core::Receiver::inputs & I_LEFT) - !!(core::Receiver::inputs & I_RIGHT);
+	int steerInput = !!(this->_inputs & I_LEFT) - !!(this->_inputs & I_RIGHT);
 
 	if (this->smoothSteer)
 		this->steer = this->applySmoothSteer(steerInput, dt);
