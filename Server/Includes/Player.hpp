@@ -12,7 +12,7 @@
 class Player
 {
 private:
-  Entity entity;
+  Entity *entity;
   Vehicle::Car _vehicle;
   iscene::ISceneManager *smgr;
   std::vector<Missile *> _missiles;
@@ -22,14 +22,14 @@ public:
   bool has_missile;
 
 public:
-  Player(std::string const &, iscene::ISceneManager *);
+  Player(irr::u32 uuid, std::string const &, iscene::ISceneManager *);
   ~Player();
 
   void update(irr::f32 dt);
 
   void setCollisions(iscene::ISceneManager* &smgr);
 
-  Entity const &getEntity() const;
+  Entity *getEntity() const;
   void setInput(irr::u32 const input);
 
   void fire_blipblipblipblipblip();

@@ -54,7 +54,7 @@ namespace core
     iscene::ISceneManager *smgr;
     igui::IGUIEnvironment *guienv;
   };
-
+ 
   std::vector<Entity *> EntityList;
 }
 

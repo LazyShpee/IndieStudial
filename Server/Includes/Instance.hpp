@@ -19,7 +19,8 @@ namespace core
   public:
     bool init(void);
     int loop(void);
-  }
+  };
+  irr::u32 UUID();
 };
 
 #endif /* INSTANCE_HPP_ */

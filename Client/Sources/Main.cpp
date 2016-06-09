@@ -16,7 +16,6 @@ int main()
   core::Receiver receiver;
   core::ILoop *loop[2];
   int ret;
-
   /* lib and device init */
   device.ptr = irr::createDevice(ivideo::EDT_OPENGL,
 				 icore::dimension2d<irr::u32>(1280, 720), 16,

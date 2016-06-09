@@ -127,8 +127,13 @@
   <ItemGroup>
     <ClCompile Include="..\Common\Sources\Entity.cpp" />
     <ClCompile Include="..\Common\Sources\Peer.cpp" />
-    <ClCompile Include="..\Common\Sources\Rayzal.cpp" />
+    <ClCompile Include="Sources\Instance.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
+    <ClCompile Include="Sources\Missile.cpp" />
+    <ClCompile Include="Sources\Player.cpp" />
+    <ClCompile Include="Sources\Rayzal.cpp" />
+    <ClCompile Include="Sources\Vector.cpp" />
+    <ClCompile Include="Sources\Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Includes\Constants.hpp" />
@@ -137,6 +142,12 @@
     <ClInclude Include="..\Common\Includes\IncludeRaknet.hpp" />
     <ClInclude Include="..\Common\Includes\Peer.hpp" />
     <ClInclude Include="..\Common\Includes\Rayzal.hpp" />
+    <ClInclude Include="Includes\GMath.hpp" />
+    <ClInclude Include="Includes\Instance.hpp" />
+    <ClInclude Include="Includes\Missile.hpp" />
+    <ClInclude Include="Includes\Player.hpp" />
+    <ClInclude Include="Includes\Vector.hpp" />
+    <ClInclude Include="Includes\Vehicle.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

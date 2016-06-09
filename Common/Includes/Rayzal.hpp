@@ -50,9 +50,16 @@ namespace rayzal
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-  struct InputPacket: public BasicPacket
+  struct InputPacket : public BasicPacket
   {
-    irr::u32 input;
+	  irr::u32 input;
+  };
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+  struct PlayerInfoPacket : public BasicPacket
+  {
+	  char nick[32];
   };
 #pragma pack(pop)
 

@@ -50,7 +50,7 @@ void Vehicle::Car::doPhysics(float dt) {
 	float frictionForceRear_cy = GMath::clamp(-cfg->cornerStiffnessRear * slipAngleRear, -tireGripRear, tireGripRear) * axleWeightRear;
 
 	//  Get amount of brake/throttle from our inputs
-	float brake = GMath::min(!!(this->_inputs & I_BRAKE) * cfg->brakeForce + !!(this->_inputs & I_EBRAKE) * cfg->eBrakeForce, cfg->brakeForce);
+	float brake = GMath::minimum(!!(this->_inputs & I_BRAKE) * cfg->brakeForce + !!(this->_inputs & I_EBRAKE) * cfg->eBrakeForce, cfg->brakeForce);
 	float throttle = !!(this->_inputs & I_THROTTLE) * (cfg->engineForce) - (cfg->engineForce / cfg->reverseForce) * !!(this->_inputs & I_REVERSE);
 
 	//  Resulting force in local car coordinates.
@@ -124,15 +124,15 @@ float Vehicle::Car::applySmoothSteer(float steerInput, float dt) {
 	else
 	{
 		if (this->steer > 0.f)
-			steer = GMath::max(this->steer - dt * 1.f, 0.f);
+			steer = GMath::maximum(this->steer - dt * 1.f, 0.f);
 		else if (this->steer < 0.f)
-			steer = GMath::min(this->steer + dt * 1.f, 0.f);
+			steer = GMath::minimum(this->steer + dt * 1.f, 0.f);
 	}
 	return (steer);
 }
 
 float Vehicle::Car::applySafeSteer(float steerInput) {
-	float avel = GMath::min(this->absVel, 250.f);
+	float avel = GMath::minimum(this->absVel, 250.f);
 	float steer = steerInput * (1.0 - (avel / 280.f));
 	return (steer);
 }

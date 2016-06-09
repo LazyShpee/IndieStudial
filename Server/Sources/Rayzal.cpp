@@ -2,6 +2,7 @@
 #include "Instance.hpp"
 #include "Constants.hpp"
 #include "Player.hpp"
+#include <iostream>
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -20,6 +21,9 @@ rayzal::ListenerThread::~ListenerThread(void)
 void rayzal::ListenerThread::loop(void)
 {
   RakNet::Packet *packet;
+  rayzal::InputPacket *inputPacket;
+  rayzal::PlayerInfoPacket *playerInfo;
+  std::vector<Player *>::const_iterator plIt;
   while((packet = this->_peer->receive()))
     {
       switch (packet->data[0])
@@ -40,19 +44,33 @@ void rayzal::ListenerThread::loop(void)
 	  break;
 	case ID_PLAYER_INFOS:
 	  // CREATE PLAYER ENTITY INTO core::Instance::PlayerList (push_back(new ...))
+		playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
+		playerInfo->nick[32] = 0;
+		playerInfo->uuid = core::UUID();
+		core::Instance::PlayerList.push_back(new Player(playerInfo->uuid, "player", this->_smgr));
+		this->_peer->sendPacket(playerInfo, packet->systemAddress);
 	  break;
 	case ID_INPUT:
 	  rayzal::ListenerThread::mutex.lock();
 	  // SET THE NEW VALUE OF INPUT FOR THE PLAYER (iterate through PlayerList and .setInput()
+	  inputPacket = (rayzal::InputPacket*)(packet->data);
+	  plIt = core::Instance::PlayerList.begin();
+	  while (plIt != core::Instance::PlayerList.end()) {
+		  if (inputPacket->uuid == (*plIt)->getEntity()->getUUID()) {
+			  (*plIt)->setInput(inputPacket->input);
+			  break;
+		  }
+		  plIt++;
+	  }
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	default:
 	  std::cout << "[" << packet->data[0] << "]" << std::endl;
 	  break;
 	}
-      this->_peer->destroyPacket();
+      this->_peer->destroyPacket(packet);
     }
-  return (NULL);
+  return;
 }
 
 bool rayzal::ListenerThread::getQueue(void) const

@@ -45,6 +45,7 @@ public:
 
   void applyPacket(rayzal::EntityPacket const *packet);
   void applyPacket(rayzal::BasicPacket const *packet);
+  irr::u32 getUUID();
 private:
   void updateEntity(rayzal::EntityPacket const *packet);
 };

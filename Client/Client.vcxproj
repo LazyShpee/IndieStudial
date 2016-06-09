@@ -127,7 +127,6 @@
   <ItemGroup>
     <ClCompile Include="..\Common\Sources\Entity.cpp" />
     <ClCompile Include="..\Common\Sources\Peer.cpp" />
-    <ClCompile Include="..\Common\Sources\Rayzal.cpp" />
     <ClCompile Include="Sources\Camera.cpp" />
     <ClCompile Include="Sources\GameLoop.cpp" />
     <ClCompile Include="Sources\Input.cpp" />
@@ -135,6 +134,7 @@
     <ClCompile Include="Sources\MenuLoop.cpp" />
     <ClCompile Include="Sources\Missile.cpp" />
     <ClCompile Include="Sources\Player.cpp" />
+    <ClCompile Include="Sources\Rayzal.cpp" />
     <ClCompile Include="Sources\Spawner.cpp" />
     <ClCompile Include="Sources\Vector.cpp" />
     <ClCompile Include="Sources\Vehicle.cpp" />

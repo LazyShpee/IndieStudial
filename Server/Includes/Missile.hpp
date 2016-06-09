@@ -9,7 +9,7 @@
 class Missile
 {
 private:
-	Entity	entity;
+	Entity	*entity;
 
 public:
 	Missile(iscene::ISceneNode *, iscene::ISceneManager *);

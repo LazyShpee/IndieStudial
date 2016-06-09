@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "IncludeIrrlicht.hpp"
 
 Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
 	this->mesh = smgr->getMesh(meshPath.c_str());
@@ -104,4 +104,8 @@ void Entity::updateEntity(rayzal::EntityPacket const *packet)
 	icore::vector3df rot(packet->rx, packet->ry, packet->rz);
 	this->node->setPosition(pos);
 	this->node->setRotation(rot);
+}
+
+irr::u32 Entity::getUUID() {
+	return this->uuid;
 }
