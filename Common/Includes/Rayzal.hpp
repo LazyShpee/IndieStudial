@@ -30,7 +30,7 @@ namespace rayzal
 
   struct BasicPacket
   {
-    packet_type type;
+    packet_type PacketType;
     irr::u32 uuid;
   };
 
