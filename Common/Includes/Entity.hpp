@@ -34,6 +34,7 @@ public:
 	 std::string const & name, iscene::ISceneManager *smgr);
   Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager *smgr);
   Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager *smgr);
+  ~Entity();
 
   iscene::IAnimatedMesh *getMesh() const;
   iscene::IAnimatedMeshSceneNode *getNode() const;

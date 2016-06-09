@@ -2,9 +2,10 @@
 #include "Constants.hpp"
 #include "Camera.hpp"
 #include "Vehicle.hpp"
+#include "Entity.hpp"
 #include "Rayzal.hpp"
 
-std::vector<iscene::IAnimatedMeshSceneNode *> core::GameLoop::gosts;
+std::vector<Entity *> core::GameLoop::gosts;
 
 core::GameLoop::GameLoop(device_t *device, rayzal::Peer *peer)
   : Loop(device, L"Suck My Wheels"), _peer(peer)
@@ -13,11 +14,6 @@ core::GameLoop::GameLoop(device_t *device, rayzal::Peer *peer)
 
 core::GameLoop::~GameLoop(void)
 {
-  unsigned int ct;
-
-  ct = -1;
-  while (++ct < core::GameLoop::gosts.size())
-    core::GameLoop::gosts[ct]->drop();
 }
 
 bool	core::GameLoop::_init(void)

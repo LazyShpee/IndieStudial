@@ -1,3 +1,4 @@
+#include "Loop.hpp"
 #include "Entity.hpp"
 
 Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
@@ -31,6 +32,17 @@ Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
 	core::GameLoop::gosts.push_back(this);
+}
+
+Entity::~Entity() {
+	std::vector<Entity *>::iterator it = core::GameLoop::gosts.begin();
+	while (it != core::GameLoop::gosts.end()) {
+		if (*it == this) {
+			core::GameLoop::gosts.erase(it);
+			break;
+		}
+		++it;
+	}
 }
 
 iscene::IAnimatedMesh						*Entity::getMesh() const {
