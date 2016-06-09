@@ -29,13 +29,19 @@ namespace rayzal
 
   struct BasicPacket
   {
-    packet_type type;
+    packet_type PacketType;
     irr::u32 uuid;
   };
 
   struct EntityPacket: public BasicPacket
   {
     short EntityType;
+	float px;
+	float py;
+	float pz;
+	float rx;
+	float ry;
+	float rz;
   };
 
   struct InputPacket: public BasicPacket

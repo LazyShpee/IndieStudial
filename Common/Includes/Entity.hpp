@@ -6,11 +6,24 @@
 
 # include "IncludeIrrlicht.hpp"
 # include "Rayzal.hpp"
+# include "Loop.hpp"
 
-// INSEREZ ICI LES TABLEAUX CONSTANTS POUR AVOIR LE NAME ET LE MESH-PATH
+struct EntityType {
+	unsigned char type;
+	char *meshPath;
+};
+
+const EntityType *EntityDescription = {
+	{ 0, "mesh_player_car.obj" },
+	{ 4, "mesh_player_truck.obj" },
+	{ 5, "mesh_missile.obj"},
+	{ 0, 0}
+};
 
 class Entity {
 private:
+  unsigned char type;
+  unsigned int uuid;
   iscene::ISceneManager *smgr;
   iscene::IAnimatedMesh *mesh;
   iscene::IAnimatedMeshSceneNode *node;
@@ -19,7 +32,8 @@ private:
 public:
   Entity(std::string const & meshPath,
 	 std::string const & name, iscene::ISceneManager *smgr);
-  Entity(EntityPacket const *packet, iscene::ISceneManager *smgr);
+  Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager *smgr);
+  Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager *smgr);
 
   iscene::IAnimatedMesh *getMesh() const;
   iscene::IAnimatedMeshSceneNode *getNode() const;
@@ -27,16 +41,12 @@ public:
   //void setWorldCollision(std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> worldCollision);
   void addWorldCollision(iscene::ISceneNodeAnimatorCollisionResponse *anim);
   std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> getWorldCollision() const;
-  EntityPacket const *getPacket(void) const;
+  rayzal::EntityPacket const *getPacket(void) const;
 
-  template <class T>
-  void applyPacket(T const *packet)
-  {
-    // INSEREZ ICI LE CODE QUI VA SOIT CALL this->updateEntity soit ou delete this
-  }
-
+  void applyPacket(rayzal::EntityPacket const *packet);
+  void applyPacket(rayzal::BasicPacket const *packet);
 private:
-  void updateEntity(EntityPacket const *packet);
+  void updateEntity(rayzal::EntityPacket const *packet);
 };
 
 #endif

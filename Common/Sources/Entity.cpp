@@ -7,9 +7,30 @@ Entity::Entity(std::string const & meshPath, std::string const & name, iscene::I
 	this->smgr = smgr;
 }
 
-Entity::Entity(EntityPacket const *packet)
+Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * smgr) : uuid(uuid), type(type), smgr(smgr)
 {
-  // INSEREZ ICI LE CODE QUI TRANSFORME UNE PACKET-STRUCT EN ENTITY QUI SERA DANS core::GameLoop::gost
+	size_t i = 0;
+	while (EntityDescription[i].meshPath) {
+		if (EntityDescription[i].type == type)
+			break;
+		i++;
+	}
+	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
+	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
+	core::GameLoop::gosts.push_back(this);
+}
+
+Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr) : uuid(packet->uuid), type(packet->EntityType), smgr(smgr)
+{
+	size_t i = 0;
+	while (EntityDescription[i].meshPath) {
+		if (EntityDescription[i].type == packet->EntityType)
+			break;
+		i++;
+	}
+	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
+	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
+	core::GameLoop::gosts.push_back(this);
 }
 
 iscene::IAnimatedMesh						*Entity::getMesh() const {
@@ -20,10 +41,6 @@ iscene::IAnimatedMeshSceneNode				*Entity::getNode() const {
 	return (this->node);
 }
 
-/*void										Entity::setWorldCollision(std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> worldCollision) {
-	this->worldCollision = worldCollision;
-}*/
-
 void										Entity::addWorldCollision(iscene::ISceneNodeAnimatorCollisionResponse *anim)
 {
 	this->worldCollision.push_back(anim);
@@ -33,7 +50,47 @@ std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> Entity::getWorldCollis
 	return (this->worldCollision);
 }
 
-void Entity::updateEntity(EntityPacket const *packet)
+rayzal::EntityPacket const * Entity::getPacket(void) const
 {
-  // INSEREZ ICI LE CODE QUI UPDATERA L'ENTITY this A PARTIR DE packet
+	rayzal::EntityPacket *packet = new rayzal::EntityPacket;
+	icore::vector3df pos = this->node->getPosition();
+	icore::vector3df rot = this->node->getRotation();
+
+	packet->EntityType = this->type;
+	packet->PacketType = rayzal::ID_ENTITY;
+	packet->uuid = this->uuid;
+	packet->px = pos.X;
+	packet->py = pos.Y;
+	packet->pz = pos.Z;
+	packet->rx = rot.X;
+	packet->ry = rot.Y;
+	packet->rz = rot.Z;
+	return (packet);
+}
+
+void Entity::applyPacket(rayzal::EntityPacket const * packet)
+{
+	if (packet->uuid != this->uuid)
+		return;
+	icore::vector3df pos(packet->px, packet->py, packet->pz);
+	icore::vector3df rot(packet->rx, packet->ry, packet->rz);
+	this->node->setPosition(pos);
+	this->node->setRotation(rot);
+}
+
+void Entity::applyPacket(rayzal::BasicPacket const * packet)
+{
+	if (packet->uuid == this->uuid && packet->PacketType == rayzal::ID_DELETE) {
+		delete this;
+	}
+}
+
+void Entity::updateEntity(rayzal::EntityPacket const *packet)
+{
+	if (packet->uuid != this->uuid)
+		return;
+	icore::vector3df pos(packet->px, packet->py, packet->pz);
+	icore::vector3df rot(packet->rx, packet->ry, packet->rz);
+	this->node->setPosition(pos);
+	this->node->setRotation(rot);
 }
