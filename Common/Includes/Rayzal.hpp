@@ -37,6 +37,12 @@ namespace rayzal
   struct EntityPacket: public BasicPacket
   {
     short EntityType;
+	float px;
+	float py;
+	float pz;
+	float rx;
+	float ry;
+	float rz;
   };
 
   struct InputPacket: public BasicPacket
