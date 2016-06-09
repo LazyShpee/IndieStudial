@@ -4,6 +4,7 @@
 # include "IncludeIrrlicht.hpp"
 # include "Player.hpp"
 # include "Camera.hpp"
+# include "Peer.hpp"
 
 namespace core
 {
@@ -57,10 +58,11 @@ namespace core
     Player *_player;
     Camera *_camera;
     irr::u32 _before;
+    rayzal::Peer *_peer;
   public:
     static std::vector<Entity *> gosts;
   public:
-    GameLoop(core::device_t *device);
+    GameLoop(core::device_t *device, rayzal::Peer *peer);
     ~GameLoop(void);
   private:
     bool _init(void);

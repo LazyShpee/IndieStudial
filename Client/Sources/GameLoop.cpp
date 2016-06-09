@@ -6,8 +6,8 @@
 
 std::vector<iscene::IAnimatedMeshSceneNode *> core::GameLoop::gosts;
 
-core::GameLoop::GameLoop(device_t *device)
-  : Loop(device, L"Suck My Wheels")
+core::GameLoop::GameLoop(device_t *device, rayzal::Peer *peer)
+  : Loop(device, L"Suck My Wheels"), _peer(peer)
 {
 }
 
@@ -74,12 +74,12 @@ int	core::GameLoop::_loop(void)
   const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f; // Time in seconds
   this->_before = now;
 
-  if (core::Receiver::inputs & core::GUI_MENU)
-    return (OK_CODE);
+  // if (core::Receiver::inputs & core::GUI_MENU)
+  //   return (OK_CODE);
 
-  // Ce que charpe à rajouter
-  if (!(core::Receiver::inputs & GAME_FIRE))
-    this->_player->stopped_fire = true;
+  // // Ce que charpe à rajouter
+  // if (!(core::Receiver::inputs & GAME_FIRE))
+  //   this->_player->stopped_fire = true;
 
   if (core::Receiver::scroll != 0)
     {

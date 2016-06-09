@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IndieStudial", "IndieStudial\IndieStudial.vcxproj", "{7F9E206B-71FC-460C-8610-2EF88535F3E9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{7F9E206B-71FC-460C-8610-2EF88535F3E9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IndieStudialServer", "IndieStudialServer\IndieStudialServer.vcxproj", "{847D06B8-8208-4884-813F-7B9738B099A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{847D06B8-8208-4884-813F-7B9738B099A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
