@@ -203,3 +203,8 @@ void			Vehicle::Car::calmezVous(float, float force)
 	this->velocity.x /= -force;
 	this->velocity.y /= -force;
 }
+
+void Vehicle::Car::setInput(irr::u32 const inputs)
+{
+  this->_inputs = inputs;
+}
