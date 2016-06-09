@@ -1,5 +1,6 @@
-#include "Constant.hpp"
 #include "Peer.hpp"
+
+using namespace rayzal;
 
 Peer::Peer(unsigned int port, unsigned int maxConnections) : peer(RakNet::RakPeerInterface::GetInstance())
 {
