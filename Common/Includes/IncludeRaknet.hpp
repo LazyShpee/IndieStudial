@@ -1,7 +1,7 @@
 #ifndef INCLUDE_RACKNET_HPP_
 # define INCLUDE_RACKNET_HPP_
 
-# ifdef _IRR_WINDOWS_
+# ifdef _WIN32
 #  include "RakPeerInterface.h"
 #  include "RakNetTypes.h"
 #  include "MessageIdentifiers.h"

@@ -4,7 +4,7 @@
 # define ERROR_CODE -1
 # define OK_CODE 0
 
-# ifdef _IRR_WINDOWS_
+# ifdef _WIN32
 #  define ASSETS_DIR "../../IndieGameAssets"
 # else
 #  define ASSETS_DIR "../IndieGameAssets"

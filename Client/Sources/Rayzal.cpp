@@ -1,26 +1,21 @@
-#include "Rayzal.cpp"
+#include "Rayzal.hpp"
 
-pthread_mutex_t rayzal::ListenerThread::mutex;
+std::mutex rayzal::ListenerThread::mutex;
 
 rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
 				       rayzal::Peer *peer)
-  : _set(true), _smgr(smgr), _peer(peer)
+  : _smgr(smgr), _peer(peer)
 {
+  this->_thread = new std::thread(this->loop);
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
 {
-  if (this->_set)
-    pthread_join(this->_thread_id, NULL);
+  this->_thread->join();
+  delete this->_thread;
 }
 
-bool rayzal::ListenerThread::start(void)
-{
-  this->_set = !pthread_create(&this->_thread_id, NULL, &this->loop, NULL);
-  return (this->_set);
-}
-
-void *rayzal::ListenerThread::loop(void *)
+void rayzal::ListenerThread::loop(void)
 {
   RakNet::Packet *packet;
   while((packet = this->_peer->receive()))
