@@ -1,7 +1,8 @@
 #ifndef RAYZAL_HPP_
 # define RAYZAL_HPP_
 
-# include <pthread.h>
+# include <thread>
+# include <mutex>
 
 # include "IncludeRaknet.hpp"
 # include "Entity.hpp"
@@ -47,18 +48,17 @@ namespace rayzal
 
   class ListenerThread
   {
-    pthread_t _thread_id;
+    std::thread *_thread;
     iscene::ISceneManager *_smgr;
     rayzal::Peer *_peer;
   public:
-    static pthread_mutex_t mutex;
+    static std::mutex mutex;
   public:
+    ListenerThread(rayzal::Peer *peer);
     ListenerThread(iscene::ISceneManager *smgr, rayzal::Peer *peer);
     ~ListenerThread(void);
-  public:
-    bool start(void);
   private:
-    void *loop(void *args);
+    void loop(void);
   };
 }
 

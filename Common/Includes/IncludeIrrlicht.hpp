@@ -1,7 +1,7 @@
 #ifndef INCLUDE_IRRLICHT_HPP_
 # define INCLUDE_IRRLICHT_HPP_
 
-# ifdef _IRR_WINDOWS_
+# ifdef _WIN32
 #  include <irrlicht.h>
 # else
 #  include <irrlicht/irrlicht.h>

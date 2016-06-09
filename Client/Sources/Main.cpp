@@ -1,7 +1,7 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
 
-#if defined (_IRR_WINDOWS_) && ! defined (MSYS)
+#ifdef _WIN32
 # pragma comment(lib, "Irrlicht.lib")
 //# pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
@@ -18,7 +18,7 @@ int main()
   int ret;
 
   /* lib and device init */
-  device.ptr = irr::createDevice(ivideo::EDT_NULL,
+  device.ptr = irr::createDevice(ivideo::EDT_OPENGL,
 				 icore::dimension2d<irr::u32>(1280, 720), 16,
 				 false, true, false, &receiver);
   if (!device.ptr)
