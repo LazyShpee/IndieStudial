@@ -21,6 +21,6 @@ namespace core
     int loop(void);
   };
   irr::u32 UUID();
-};
+}
 
 #endif /* INSTANCE_HPP_ */

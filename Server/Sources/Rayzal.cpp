@@ -1,5 +1,5 @@
-#include "Rayzal.hpp"
 #include "Instance.hpp"
+#include "Rayzal.hpp"
 #include "Constants.hpp"
 #include "Player.hpp"
 #include <iostream>
@@ -9,12 +9,12 @@ std::mutex rayzal::ListenerThread::mutex;
 rayzal::ListenerThread::ListenerThread(rayzal::Peer *peer)
   : _peer(peer)
 {
-  this->_thread = new std::thread(this->loop);
+  this->_thread = new std::thread(&rayzal::ListenerThread::loop, this);
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
 {
-  this->_thread.join();
+  this->_thread->join();
   delete this->_thread;
 }
 
@@ -47,7 +47,7 @@ void rayzal::ListenerThread::loop(void)
 		playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
 		playerInfo->nick[32] = 0;
 		playerInfo->uuid = core::UUID();
-		core::Instance::PlayerList.push_back(new Player(playerInfo->uuid, "player", this->_smgr));
+		core::Instance::PlayerList.push_back(new Player(playerInfo->uuid, this->_smgr));
 		this->_peer->sendPacket(playerInfo, packet->systemAddress);
 	  break;
 	case ID_INPUT:

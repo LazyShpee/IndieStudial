@@ -6,7 +6,7 @@
 
 #define MOVE_SCALE 10
 
-Player::Player(irr::u32 uuid,std::string const & meshPath, iscene::ISceneManager *smgr)
+Player::Player(irr::u32 uuid, iscene::ISceneManager *smgr)
 {
 	this->smgr = smgr;
 	this->entity = new Entity(0, uuid, smgr);

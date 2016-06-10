@@ -2,8 +2,8 @@
 
 #include <unistd.h>
 
-#include "Peer.hpp"
-#include "IncludeIrrlicht.hpp"
+#include "Instance.hpp"
+#include "Rayzal.hpp"
 #include "Constants.hpp"
 
 int main()

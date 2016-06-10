@@ -22,7 +22,7 @@ public:
   bool has_missile;
 
 public:
-  Player(irr::u32 uuid, std::string const &, iscene::ISceneManager *);
+  Player(irr::u32 uuid, iscene::ISceneManager *);
   ~Player();
 
   void update(irr::f32 dt);

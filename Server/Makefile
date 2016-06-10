@@ -1,28 +1,38 @@
 #
 # paths
 #
-INCDIR :=	./Includes
+INCDIRS :=	./Includes ../Common/Includes
 SRCDIR :=	./Sources
+COMMON_SRCDIR := ../Common/Sources
 
 #
 # compilation options
 #
 CXX :=		g++
-CXXFLAGS :=	-I $(INCDIR) -W -Wall -Wextra -Werror -pedantic
+CXXFLAGS :=	$(addprefix -I ,$(INCDIRS)) -W -Wall -Wextra -Werror -pedantic
 
 #
 # link options
 #
 LINKER :=	$(CXX)
 LDFLAGS :=
-LDLIBS :=	-l RakNetDLL -l Irrlicht
+LDLIBS :=	-l RakNetDLL -l Irrlicht -l pthread
 
 #
 # indie binary options
 #
-NAME :=		indie
-SRC :=		Main.cpp
-SRC :=		$(addprefix $(SRCDIR)/, $(SRC))
+NAME :=		server
+SRC :=		Main.cpp \
+		Rayzal.cpp \
+		Peer.cpp \
+		Instance.cpp \
+		Player.cpp \
+		Vehicle.cpp \
+		Entity.cpp \
+		Vector.cpp \
+		Missile.cpp
+SRC :=		$(foreach var, $(SRC), \
+		$(if $(wildcard $(SRCDIR)/$(var)), $(SRCDIR), $(COMMON_SRCDIR))/$(var))
 OBJ :=		$(SRC:.cpp=.swag)
 OBJ_DEBUG :=	$(SRC:.cpp=.debug)
 
