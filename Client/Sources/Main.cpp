@@ -16,6 +16,8 @@ int main()
   core::Receiver receiver;
   core::ILoop *loop[2];
   int ret;
+  int status;
+
   /* lib and device init */
   device.ptr = irr::createDevice(ivideo::EDT_OPENGL,
 				 icore::dimension2d<irr::u32>(1280, 720), 16,
@@ -28,6 +30,14 @@ int main()
 
   rayzal::Peer peer("localhost");
   rayzal::ListenerThread listener(device.smgr, &peer);
+  while ((status = listener.wait_connection()) != OK_CONNECTION)
+    {
+      if (status == ERROR_CODE)
+	return (ERROR_CODE); // next update of this loop will be to try again the connection attempt
+      usleep(500);
+    }
+  // MenuLoop will be defined here when it will be working ^^'
+  // and then another method of ListenerThread will be added to init the peer attempt
   loop[0] = new core::GameLoop(&device, &peer);
   // loop[1] = new core::MenuLoop(&device);
   if (loop[0]->init())

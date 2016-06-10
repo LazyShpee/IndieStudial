@@ -8,6 +8,8 @@
 # include "Entity.hpp"
 # include "Peer.hpp"
 
+# define OK_CONNECTION 1
+
 namespace rayzal
 {
   enum packet_type
@@ -35,7 +37,7 @@ namespace rayzal
     irr::u32 uuid;
   };
 #pragma pack(pop)
-
+  
 #pragma pack(push, 1)
   struct EntityPacket: public BasicPacket
   {
@@ -63,6 +65,14 @@ namespace rayzal
   };
 #pragma pack(pop)
 
+#pragma pack(push, 1)
+  struct GameInfoPacket
+  {
+    char map_name[32];
+    PlayerInfoPacket player_list[NB_PLAYERS];
+  };
+#pragma pack(pop)
+
   void SendPacket(BasicPacket const *);
 
   class ListenerThread
@@ -71,6 +81,7 @@ namespace rayzal
     iscene::ISceneManager *_smgr;
     rayzal::Peer *_peer;
     int _queue;
+    int _wait;
   public:
     static std::mutex mutex;
   public:
@@ -81,6 +92,7 @@ namespace rayzal
     void loop(void);
   public:
     bool getQueue(void) const;
+    int wait_connection(void) const
   };
 }
 
