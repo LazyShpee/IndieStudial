@@ -1,5 +1,6 @@
 #include "Camera.hpp"
 #include "GMath.hpp"
+#include "Entity.hpp"
 
 Camera::Camera(irr::IrrlichtDevice *device)
 {

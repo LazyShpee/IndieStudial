@@ -16,7 +16,7 @@ CXXFLAGS :=	$(addprefix -I ,$(INCDIRS)) -W -Wall -Wextra -Werror -pedantic
 #
 LINKER :=	$(CXX)
 LDFLAGS :=
-LDLIBS :=	-l Irrlicht -l RakNetDLL
+LDLIBS :=	-l Irrlicht -l RakNetDLL -l pthread
 
 #
 # indie binary options
@@ -28,7 +28,8 @@ SRC :=		Main.cpp \
 		MenuLoop.cpp \
 		GameLoop.cpp \
 		Input.cpp \
-		Rayzal.cpp
+		Rayzal.cpp \
+		Camera.cpp
 SRC :=		$(foreach var, $(SRC), \
 		$(if $(wildcard $(SRCDIR)/$(var)), $(SRCDIR), $(COMMON_SRCDIR))/$(var))
 OBJ :=		$(SRC:.cpp=.swag)

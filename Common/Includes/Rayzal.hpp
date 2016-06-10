@@ -90,7 +90,6 @@ namespace rayzal
     ~ListenerThread(void);
   private:
     void loop(void);
-    std::thread getThread(void) const;
   public:
     bool getQueue(void) const;
     int wait_connection(void) const;

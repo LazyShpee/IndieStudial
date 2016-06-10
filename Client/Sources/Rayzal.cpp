@@ -4,6 +4,8 @@
 #include "Constants.hpp"
 #include "IncludeIrrlicht.hpp"
 #include "Rayzal.hpp"
+#include "Entity.hpp"
+#include "Loop.hpp"
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -61,7 +63,7 @@ void rayzal::ListenerThread::loop(void)
 		entIt = core::EntityList.begin();
 		foundEnt = false;
 		while (entIt != core::EntityList.end()) {
-			if ((*entIt)->getUUID == entPacket->uuid) {
+		  if ((*entIt)->getUUID() == entPacket->uuid) {
 				(*entIt)->applyPacket(entPacket);
 				foundEnt = true;
 				break;
@@ -76,7 +78,7 @@ void rayzal::ListenerThread::loop(void)
 		basicPacket = (rayzal::BasicPacket *)packet;
 		entIt = core::EntityList.begin();
 		while (entIt != core::EntityList.end()) {
-			if ((*entIt)->getUUID == entPacket->uuid) {
+		  if ((*entIt)->getUUID() == entPacket->uuid) {
 				(*entIt)->applyPacket(basicPacket);
 				break;
 			}
@@ -95,9 +97,4 @@ void rayzal::ListenerThread::loop(void)
 int rayzal::ListenerThread::wait_connection(void) const
 {
   return (this->_wait);
-}
-
-std::thread rayzal::ListenerThread::getThread(void) const
-{
-  
 }

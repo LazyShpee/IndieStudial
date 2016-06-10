@@ -1,4 +1,5 @@
 #include "IncludeIrrlicht.hpp"
+#include "Entity.hpp"
 
 Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
 	this->mesh = smgr->getMesh(meshPath.c_str());

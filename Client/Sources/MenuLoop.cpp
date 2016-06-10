@@ -5,6 +5,7 @@
 core::MenuLoop::MenuLoop(device_t *device)
   : Loop(device, L"Suck My Wheels")
 {
+  (void)core::gameInfo;
 }
 
 bool	core::MenuLoop::_init(void)

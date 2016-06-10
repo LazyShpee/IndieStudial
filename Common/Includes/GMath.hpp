@@ -2,8 +2,7 @@
 # define GMATH_HPP_ value
 
 # include <cmath>
-# undef min
-# undef max
+
 namespace GMath {
 
 	template<typename T>
@@ -23,7 +22,7 @@ namespace GMath {
 
 	template<typename T>
 	T clamp(T n, T min, T max) {
-		return GMath::max(GMath::min(n, max), min);
+		return GMath::maximum(GMath::minimum(n, max), min);
 	}
 
 	template<typename T>
