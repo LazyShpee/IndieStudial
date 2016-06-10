@@ -37,7 +37,7 @@ int main()
     {
       if (status == ERROR_CODE)
 	return (ERROR_CODE); // next update of this loop will be to try again the connection attempt
-      usleep(500);
+      SLEEP(500);
     }
   // MenuLoop will be defined here when it will be working ^^'
   // and then another method of ListenerThread will be added to init the peer attempt

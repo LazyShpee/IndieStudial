@@ -78,7 +78,7 @@ void rayzal::ListenerThread::loop(void)
 		basicPacket = (rayzal::BasicPacket *)packet;
 		entIt = core::EntityList.begin();
 		while (entIt != core::EntityList.end()) {
-		  if ((*entIt)->getUUID() == entPacket->uuid) {
+		  if ((*entIt)->getUUID() == basicPacket->uuid) {
 				(*entIt)->applyPacket(basicPacket);
 				break;
 			}

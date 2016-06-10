@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-#include <unistd.h>
-
 #include "Instance.hpp"
 #include "Rayzal.hpp"
 #include "Constants.hpp"
