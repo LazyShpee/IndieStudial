@@ -44,7 +44,7 @@ void rayzal::ListenerThread::loop(void)
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	case ID_GAME_INFOS:
-	  // ADD rayzal::GameInfoPacket INFOS TO ...........  IDK MAYBE A GETTER/SETTER WILL BE ADDED TO THE class core::GameLoop ah non j'ai menti on va juste fill this->_player_uuid_list et this->_player_nick_list ah non j'ai encore menti omg
+	  // COPY rayzal::GameInfoPacket INFOS TO THE core::gameInfo VARIABLE
 	  break;
 	case ID_ENTITY:
 	  // ADD rayzal::EntityPacket INFOS TO core::EntityList

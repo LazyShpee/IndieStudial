@@ -4,7 +4,7 @@
 # include "IncludeIrrlicht.hpp"
 # include "Player.hpp"
 # include "Camera.hpp"
-# include "Peer.hpp"
+# include "Rayzal.hpp"
 
 namespace core
 {
@@ -66,6 +66,8 @@ namespace core
     bool _init(void);
     int _loop(void);
   };
+
+  rayzal::GameInfoPacket gameInfo;
 
 //   // you can stop read from here, this code will not be used
 //   template <class T>
