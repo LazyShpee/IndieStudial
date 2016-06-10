@@ -14,10 +14,12 @@ rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
   : _smgr(smgr), _peer(peer), _wait(OK_CODE)
 {
   this->_thread = new std::thread(&rayzal::ListenerThread::loop, this);
+  // INSERER ICI LE CODE QUI VA INITIALISER LE SON OMG
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
 {
+  // INSERER ICI LE CODE QUI VA UNINITIALIZE LE SON OMG
   this->_thread->join();
   delete this->_thread;
 }
@@ -33,7 +35,6 @@ void rayzal::ListenerThread::loop(void)
     {
       switch (packet->data[0])
 	{
-	  // INSEREZ ICI LE CODE QUI VA GERER LES ENTITIES
 	case ID_CONNECTION_REQUEST_ACCEPTED:
 	  std::cout << "The connection request has been accepted." << std::endl;
 	  break;
@@ -56,7 +57,6 @@ void rayzal::ListenerThread::loop(void)
 	  break;
 	case ID_GAME_INFOS:
 		core::gameInfo = *((rayzal::GameInfoPacket *)packet);
-	  // COPY rayzal::GameInfoPacket INFOS TO THE core::gameInfo VARIABLE
 	  break;
 	case ID_ENTITY:
 		entPacket = (rayzal::EntityPacket *)packet;
@@ -72,7 +72,6 @@ void rayzal::ListenerThread::loop(void)
 		}
 		if (!foundEnt)
 			new Entity(entPacket, this->_smgr);
-	  // ADD rayzal::EntityPacket INFOS TO core::EntityList
 	  break;
 	case ID_DELETE:
 		basicPacket = (rayzal::BasicPacket *)packet;
@@ -85,6 +84,9 @@ void rayzal::ListenerThread::loop(void)
 			entIt++;
 		}
 		break;
+	case ID_SOUND:
+	  // INSERER ICI LE CODE QUI VA LIRE LE SON DECRIT DANS rayzal::SoundPacket
+	  break;
 	default:
 	  std::cout << "[" << packet->data[0] << "]" << std::endl;
 	  break;

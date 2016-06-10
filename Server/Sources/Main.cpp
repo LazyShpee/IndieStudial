@@ -22,7 +22,7 @@ int main()
   rayzal::ListenerThread listener(&peer);
   // while (listener.getQueue())
   //     usleep(500);
-  core::Instance instance(&device);
+  core::Instance instance(&device, &peer);
   if (instance.init())
     return (ERROR_CODE);
   while (device.ptr->run())

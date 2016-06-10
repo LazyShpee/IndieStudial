@@ -27,7 +27,8 @@ namespace rayzal
 
       // udp (server -> client)
       ID_ENTITY,
-      ID_DELETE
+      ID_DELETE,
+      ID_SOUND
     };
 
 #pragma pack(push, 1)
@@ -37,7 +38,15 @@ namespace rayzal
     irr::u32 uuid;
   };
 #pragma pack(pop)
-  
+
+#pragma pack(push, 1)
+  struct SoundPacket: public BasicPacket
+  {
+    int sound_id;
+    bool loop;
+  };
+#pragma pack(pop)
+
 #pragma pack(push, 1)
   struct EntityPacket: public BasicPacket
   {
@@ -72,8 +81,6 @@ namespace rayzal
     PlayerInfoPacket player_list[NB_PLAYERS];
   };
 #pragma pack(pop)
-
-  void SendPacket(BasicPacket const *);
 
   class ListenerThread
   {

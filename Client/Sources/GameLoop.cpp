@@ -67,6 +67,10 @@ bool	core::GameLoop::_init(void)
 
 int	core::GameLoop::_loop(void)
 {
+  // ######################################################################################
+  // INSERER ICI LE CODE POUR ENVOYER core::Receiver::inputs
+  // >>>>>>> this->_peer->sendPacket<rayzal::InputPacket>( ......
+  // ######################################################################################
   // const irr::u32 now = this->_device->ptr->getTimer()->getTime();
   // const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f; // Time in seconds
   // this->_before = now;
@@ -88,9 +92,11 @@ int	core::GameLoop::_loop(void)
 
   // ############################################################################
   // this->_camera->updateCamera(this->_player);
-  // ############################################################################
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
-  this->_device->smgr->drawAll();
+  // INSERER ICI LE CODE QUI ITERATE A TRAVERS core::EntityList et qui render
+  // ############################################################################
+
+  // this->_device->smgr->drawAll();
   this->_device->driver->endScene();
   return (OK_CODE);
 }
