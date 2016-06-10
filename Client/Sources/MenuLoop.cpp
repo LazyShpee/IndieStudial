@@ -1,7 +1,6 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include "Camera.hpp"
-#include "Vehicle.hpp"
 
 core::MenuLoop::MenuLoop(device_t *device)
   : Loop(device, L"Suck My Wheels")

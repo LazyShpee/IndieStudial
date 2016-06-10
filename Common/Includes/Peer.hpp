@@ -1,7 +1,7 @@
 #ifndef PEER_HPP_
 # define PEER_HPP_
 
-# include "IncludeRakNet.hpp"
+# include "IncludeRaknet.hpp"
 # include <string>
 
 namespace rayzal

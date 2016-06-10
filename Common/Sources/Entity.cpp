@@ -7,7 +7,8 @@ Entity::Entity(std::string const & meshPath, std::string const & name, iscene::I
 	this->smgr = smgr;
 }
 
-Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * smgr) : uuid(uuid), type(type), smgr(smgr)
+Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * smgr)
+  : type(type), uuid(uuid), smgr(smgr)
 {
 	size_t i = 0;
 	while (EntityDescription[i].meshPath) {
@@ -20,7 +21,8 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 	core::EntityList.push_back(this);
 }
 
-Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr) : uuid(packet->uuid), type(packet->EntityType), smgr(smgr)
+Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
+  : type(packet->EntityType), uuid(packet->uuid), smgr(smgr)
 {
 	size_t i = 0;
 	while (EntityDescription[i].meshPath) {

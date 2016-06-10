@@ -6,7 +6,9 @@
 //# pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-/* 
+// std::vector<Entity *> core::EntityList;
+
+/*
  * bonjour je suis le main
  * pour l'instant je contient l'init de la lib et la boucle de jeu
  */
@@ -17,6 +19,7 @@ int main()
   core::ILoop *loop[2];
   int ret;
   int status;
+  (void)core::gameInfo;
 
   /* lib and device init */
   device.ptr = irr::createDevice(ivideo::EDT_OPENGL,

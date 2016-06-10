@@ -2,7 +2,6 @@
 # define LOOP_HPP_
 
 # include "IncludeIrrlicht.hpp"
-# include "Player.hpp"
 # include "Camera.hpp"
 # include "Rayzal.hpp"
 
@@ -55,9 +54,9 @@ namespace core
   class GameLoop: public Loop<GameLoop> // loop derivate for games
   {
     friend class Loop<GameLoop>;  // Loop class must access private derived methods
-    Player *_player;
+    // Entity *_player;
     Camera *_camera;
-    irr::u32 _before;
+    // irr::u32 _before;
     rayzal::Peer *_peer;
   public:
     GameLoop(core::device_t *device, rayzal::Peer *peer);
@@ -67,7 +66,7 @@ namespace core
     int _loop(void);
   };
 
-  rayzal::GameInfoPacket gameInfo;
+  static rayzal::GameInfoPacket gameInfo;
 
 //   // you can stop read from here, this code will not be used
 //   template <class T>

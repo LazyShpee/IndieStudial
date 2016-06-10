@@ -1,8 +1,9 @@
 #
 # paths
 #
-INCDIRS :=	./Includes ../GlobalIncludes
+INCDIRS :=	./Includes ../Common/Includes
 SRCDIR :=	./Sources
+COMMON_SRCDIR := ../Common/Sources
 
 #
 # compilation options
@@ -21,17 +22,15 @@ LDLIBS :=	-l Irrlicht -l RakNetDLL
 # indie binary options
 #
 NAME :=		client
-SRC :=		main.cpp \
+SRC :=		Main.cpp \
+		Peer.cpp \
+		Entity.cpp \
 		MenuLoop.cpp \
 		GameLoop.cpp \
-		Player.cpp \
-		Camera.cpp \
-		Entity.cpp \
 		Input.cpp \
-		Vehicle.cpp \
-		Vector.cpp \
-		Missile.cpp
-SRC :=		$(addprefix $(SRCDIR)/, $(SRC))
+		Rayzal.cpp
+SRC :=		$(foreach var, $(SRC), \
+		$(if $(wildcard $(SRCDIR)/$(var)), $(SRCDIR), $(COMMON_SRCDIR))/$(var))
 OBJ :=		$(SRC:.cpp=.swag)
 OBJ_DEBUG :=	$(SRC:.cpp=.debug)
 

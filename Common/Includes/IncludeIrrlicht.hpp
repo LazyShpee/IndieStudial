@@ -1,6 +1,8 @@
 #ifndef INCLUDE_IRRLICHT_HPP_
 # define INCLUDE_IRRLICHT_HPP_
 
+# include<vector>
+
 # ifdef _WIN32
 #  include <irrlicht.h>
 # else
@@ -11,7 +13,7 @@ namespace icore = irr::core;
 namespace ivideo = irr::video;
 namespace igui = irr::gui;
 
-# include "Entity.hpp"
+class Entity;
 
 namespace core
 {
@@ -55,7 +57,7 @@ namespace core
     igui::IGUIEnvironment *guienv;
   };
  
-  std::vector<Entity *> EntityList;
+  static std::vector<Entity *> EntityList;
 }
 
 #endif // INCLUDE_IRRLICHT_HPP_

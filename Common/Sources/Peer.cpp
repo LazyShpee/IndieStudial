@@ -5,12 +5,16 @@ using namespace rayzal;
 Peer::Peer(unsigned int port, unsigned int maxConnections) : peer(RakNet::RakPeerInterface::GetInstance())
 {
 	this->peer->SetMaximumIncomingConnections(maxConnections);
-	this->peer->Startup(maxConnections, &RakNet::SocketDescriptor(port, 0), 1);
+	RakNet::SocketDescriptor *tmp = new RakNet::SocketDescriptor(port, 0);
+	this->peer->Startup(maxConnections, tmp, 1);
+	delete tmp;
 }
 
 Peer::Peer(std::string const & ip, unsigned int port) : peer(RakNet::RakPeerInterface::GetInstance())
 {
-	this->peer->Startup(1, &RakNet::SocketDescriptor(), 1);
+	RakNet::SocketDescriptor *tmp = new RakNet::SocketDescriptor();
+	this->peer->Startup(1, tmp, 1);
+	delete tmp;
 	this->peer->Connect(ip.c_str(), port, 0, 0);
 }
 

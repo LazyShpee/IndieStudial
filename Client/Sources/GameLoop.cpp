@@ -1,7 +1,6 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include "Camera.hpp"
-#include "Vehicle.hpp"
 #include "Entity.hpp"
 #include "Rayzal.hpp"
 
@@ -22,9 +21,9 @@ bool	core::GameLoop::_init(void)
   iscene::IAnimatedMesh *map =
     this->_device->smgr->getMesh(ASSETS_DIR"/map/awp_india.obj");
   iscene::IMeshSceneNode *map_node = 0;
-  iscene::IAnimatedMesh *ennemy_mesh =
-    this->_device->smgr->getMesh(ASSETS_DIR"/truck/Truck.obj");
-  iscene::IAnimatedMeshSceneNode *ennemy_node = 0;
+  // iscene::IAnimatedMesh *ennemy_mesh =
+  //   this->_device->smgr->getMesh(ASSETS_DIR"/truck/Truck.obj");
+  // iscene::IAnimatedMeshSceneNode *ennemy_node = 0;
 
   if (map)
     {
@@ -37,36 +36,40 @@ bool	core::GameLoop::_init(void)
 	}
     }
 
-  this->_player = new Player(std::string(ASSETS_DIR"/car/Avent.obj"),
-			     this->_device->smgr);
+  (void)core::gameInfo;
+  // ##########################################################################################
+  // >>>>>>>>>>>>>> create a new entity from uuid from core::gameInfos <<<<<<<<<<<<<<<<<<<<<<<<
+  //this->_player = new Player(std::string(ASSETS_DIR"/car/Avent.obj"),
+  //			     this->_device->smgr);
+  // ##########################################################################################
 
-  iscene::ISceneNode *playerNode = this->_player->getEntity().getNode();
-  playerNode->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
-  playerNode->setPosition(icore::vector3df(100, 100, 100));
-  playerNode->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-  playerNode->setName("player");
+  // iscene::ISceneNode *playerNode = this->_player->getNode();
+  // playerNode->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
+  // playerNode->setPosition(icore::vector3df(100, 100, 100));
+  // playerNode->setMaterialFlag(ivideo::EMF_LIGHTING, false);
+  // playerNode->setName("player");
 
-  if (ennemy_mesh)
-    {
-      ennemy_node = this->_device->smgr->addAnimatedMeshSceneNode(ennemy_mesh);
-      ennemy_node->setPosition(icore::vector3df(120, 84, 100));
-      ennemy_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-      ennemy_node->setName("enemy");
-    }
+  // if (ennemy_mesh)
+  //   {
+  //     ennemy_node = this->_device->smgr->addAnimatedMeshSceneNode(ennemy_mesh);
+  //     ennemy_node->setPosition(icore::vector3df(120, 84, 100));
+  //     ennemy_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
+  //     ennemy_node->setName("enemy");
+  //   }
 
   this->_camera = new Camera(this->_device->ptr);
 
-  this->_player->setCollisions(this->_device->smgr);
+  // this->_player->getNode()->setCollisions(this->_device->smgr);
 
-  this->_before = this->_device->ptr->getTimer()->getTime();
+  // this->_before = this->_device->ptr->getTimer()->getTime();
   return (OK_CODE);
 }
 
 int	core::GameLoop::_loop(void)
 {
-  const irr::u32 now = this->_device->ptr->getTimer()->getTime();
-  const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f; // Time in seconds
-  this->_before = now;
+  // const irr::u32 now = this->_device->ptr->getTimer()->getTime();
+  // const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f; // Time in seconds
+  // this->_before = now;
 
   // if (core::Receiver::inputs & core::GUI_MENU)
   //   return (OK_CODE);
@@ -81,8 +84,11 @@ int	core::GameLoop::_loop(void)
       core::Receiver::scroll = 0;
     }
 
-  this->_player->update(dt);
-  this->_camera->updateCamera(this->_player);
+  // this->_player->update(dt);
+
+  // ############################################################################
+  // this->_camera->updateCamera(this->_player);
+  // ############################################################################
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
   this->_device->smgr->drawAll();
   this->_device->driver->endScene();

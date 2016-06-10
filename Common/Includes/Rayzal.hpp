@@ -5,8 +5,8 @@
 # include <mutex>
 
 # include "IncludeRaknet.hpp"
-# include "Entity.hpp"
 # include "Peer.hpp"
+# include "Constants.hpp"
 
 # define OK_CONNECTION 1
 
@@ -66,7 +66,7 @@ namespace rayzal
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-  struct GameInfoPacket
+  struct GameInfoPacket: public BasicPacket
   {
     char map_name[32];
     PlayerInfoPacket player_list[NB_PLAYERS];
@@ -90,9 +90,10 @@ namespace rayzal
     ~ListenerThread(void);
   private:
     void loop(void);
+    std::thread getThread(void) const;
   public:
     bool getQueue(void) const;
-    int wait_connection(void) const
+    int wait_connection(void) const;
   };
 }
 

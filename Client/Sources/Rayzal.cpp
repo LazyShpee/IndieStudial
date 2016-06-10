@@ -1,14 +1,17 @@
-#include "Constants.hpp"
-#include "Loop.hpp"
-#include "Rayzal.hpp"
+#include <functional>
 #include <iostream>
+
+#include "Constants.hpp"
+#include "IncludeIrrlicht.hpp"
+#include "Rayzal.hpp"
 
 std::mutex rayzal::ListenerThread::mutex;
 
 rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
 				       rayzal::Peer *peer)
-  : _thread(new std::thread(this->loop)), _smgr(smgr), _peer(peer), _wait(OK_CODE)
+  : _smgr(smgr), _peer(peer), _wait(OK_CODE)
 {
+  this->_thread = new std::thread(&rayzal::ListenerThread::loop, this);
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
@@ -92,4 +95,9 @@ void rayzal::ListenerThread::loop(void)
 int rayzal::ListenerThread::wait_connection(void) const
 {
   return (this->_wait);
+}
+
+std::thread rayzal::ListenerThread::getThread(void) const
+{
+  
 }

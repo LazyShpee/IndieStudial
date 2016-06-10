@@ -9,15 +9,16 @@
 
 struct EntityType {
 	unsigned char type;
-	char *meshPath;
+	const char *meshPath;
 };
 
-const EntityType *EntityDescription = {
-	{ 0, "mesh_player_car.obj" },
-	{ 4, "mesh_player_truck.obj" },
-	{ 5, "mesh_missile.obj"},
-	{ 0, 0}
-};
+const EntityType EntityDescription[] =
+  {
+    { 0, "mesh_player_car.obj" },
+    { 4, "mesh_player_truck.obj" },
+    { 5, "mesh_missile.obj" },
+    { 0, 0 }
+  };
 
 class Entity {
 private:

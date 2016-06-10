@@ -2,7 +2,6 @@
 # define CAMERA_H
 
 # include "IncludeIrrlicht.hpp"
-# include "Player.hpp"
 
 # define MAX_DIST 200.f
 # define MIN_DIST 10.f
@@ -23,7 +22,7 @@ private:
 
 public:
 	Camera(irr::IrrlichtDevice *device);
-	void					updateCamera(Player *player);
+	void					updateCamera(Entity *player);
 
 	void					setDevice(irr::IrrlichtDevice *device);
 	irr::IrrlichtDevice*	getDevice() const;
