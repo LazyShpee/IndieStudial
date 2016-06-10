@@ -1,5 +1,7 @@
-#include "Rayzal.hpp"
+#include "Constants.hpp"
 #include "Loop.hpp"
+#include "Rayzal.hpp"
+#include <iostream>
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -18,6 +20,10 @@ rayzal::ListenerThread::~ListenerThread(void)
 void rayzal::ListenerThread::loop(void)
 {
   RakNet::Packet *packet;
+  rayzal::BasicPacket *basicPacket;
+  rayzal::EntityPacket *entPacket;
+  std::vector<Entity *>::iterator entIt;
+  bool foundEnt;
   while((packet = this->_peer->receive()))
     {
       switch (packet->data[0])
@@ -44,21 +50,43 @@ void rayzal::ListenerThread::loop(void)
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	case ID_GAME_INFOS:
+		core::gameInfo = *((rayzal::GameInfoPacket *)packet);
 	  // COPY rayzal::GameInfoPacket INFOS TO THE core::gameInfo VARIABLE
 	  break;
 	case ID_ENTITY:
+		entPacket = (rayzal::EntityPacket *)packet;
+		entIt = core::EntityList.begin();
+		foundEnt = false;
+		while (entIt != core::EntityList.end()) {
+			if ((*entIt)->getUUID == entPacket->uuid) {
+				(*entIt)->applyPacket(entPacket);
+				foundEnt = true;
+				break;
+			}
+			entIt++;
+		}
+		if (!foundEnt)
+			new Entity(entPacket, this->_smgr);
 	  // ADD rayzal::EntityPacket INFOS TO core::EntityList
 	  break;
 	case ID_DELETE:
-	  // LOOK FOR ENTITY IN core::EntityList AND DELETE IT
-	  break;
+		basicPacket = (rayzal::BasicPacket *)packet;
+		entIt = core::EntityList.begin();
+		while (entIt != core::EntityList.end()) {
+			if ((*entIt)->getUUID == entPacket->uuid) {
+				(*entIt)->applyPacket(basicPacket);
+				break;
+			}
+			entIt++;
+		}
+		break;
 	default:
 	  std::cout << "[" << packet->data[0] << "]" << std::endl;
 	  break;
 	}
-      this->_peer->destroyPacket();
+      this->_peer->destroyPacket(packet);
     }
-  return (NULL);
+  return;
 }
 
 int rayzal::ListenerThread::wait_connection(void) const
