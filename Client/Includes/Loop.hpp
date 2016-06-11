@@ -56,7 +56,7 @@ namespace core
     friend class Loop<GameLoop>;  // Loop class must access private derived methods
     Entity *_player;
     Camera *_camera;
-    // irr::u32 _before;
+    iscene::IMeshSceneNode *_map_node;
     rayzal::Peer *_peer;
   public:
     GameLoop(core::device_t *device, rayzal::Peer *peer);
@@ -68,6 +68,7 @@ namespace core
 
   static rayzal::GameInfoPacket gameInfo;
   static rayzal::PlayerInfoPacket selfInfo;
+
 //   // you can stop read from here, this code will not be used
 //   template <class T>
 //   class LoopAllocator // vector allocator to stock every Loop derivated class

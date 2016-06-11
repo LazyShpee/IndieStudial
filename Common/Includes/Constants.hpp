@@ -21,6 +21,6 @@
 # define MISSILE_MESH_PATH ASSETS_DIR"/bear.obj"
 # define SPAWNER_MESH_PATH ASSETS_DIR"/bear.obj"
 
-# define NB_PLAYERS 4
+# define NB_PLAYERS 2
 
 #endif /* CONSTANTS_HPP_ */

@@ -20,19 +20,15 @@ bool	core::GameLoop::_init(void)
 		       icore::vector3df(0,0,0));	// Nodes and meshes to print 
   iscene::IAnimatedMesh *map =
     this->_device->smgr->getMesh(ASSETS_DIR"/map/awp_india.obj");
-  iscene::IMeshSceneNode *map_node = 0;
-  // iscene::IAnimatedMesh *ennemy_mesh =
-  //   this->_device->smgr->getMesh(ASSETS_DIR"/truck/Truck.obj");
-  // iscene::IAnimatedMeshSceneNode *ennemy_node = 0;
 
   if (map)
     {
-      map_node = this->_device->smgr->addOctreeSceneNode(map->getMesh(0), 0, -1, 1024);
-      if (map_node)
+      this->_map_node = this->_device->smgr->addOctreeSceneNode(map->getMesh(0), 0, -1, 1024);
+      if (this->_map_node)
 	{
-	  map_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-	  map_node->setPosition(icore::vector3df(0, 0, 0));
-	  map_node->setName("map");
+	  this->_map_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
+	  this->_map_node->setPosition(icore::vector3df(0, 0, 0));
+	  this->_map_node->setName("map");
 	}
     }
 
@@ -81,16 +77,13 @@ int	core::GameLoop::_loop(void)
   this->_camera->updateCamera(this->_player);
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
 
+  this->_map_node->render();
   std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
   while (it != core::EntityList.cend()) {
 	  (*it)->getNode()->render();
 	  it++;
   }
 
-  // INSERER ICI LE CODE QUI render la map
-  // ############################################################################
-
-  // this->_device->smgr->drawAll();
   this->_device->driver->endScene();
   return (OK_CODE);
 }

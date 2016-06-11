@@ -6,8 +6,6 @@
 //# pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
-// std::vector<Entity *> core::EntityList;
-
 /*
  * bonjour je suis le main
  * pour l'instant je contient l'init de la lib et la boucle de jeu
@@ -19,6 +17,7 @@ int main()
   core::ILoop *loop[2];
   int ret;
   int status;
+  (void)core::selfInfo;
   (void)core::gameInfo;
 
   /* lib and device init */
@@ -36,23 +35,26 @@ int main()
   while ((status = listener.wait_connection()) != OK_CONNECTION)
     {
       if (status == ERROR_CODE)
-	return (ERROR_CODE); // next update of this loop will be to try again the connection attempt
+        goto exit; // next update of this loop will be to try again the connection attempt
       SLEEP(500);
     }
+
   // MenuLoop will be defined here when it will be working ^^'
   // and then another method of ListenerThread will be added to init the peer attempt
   loop[0] = new core::GameLoop(&device, &peer);
   // loop[1] = new core::MenuLoop(&device);
   if (loop[0]->init())
-    return (ERROR_CODE);
+    goto exit;
   // if (loop[1]->init())
   //   return (ERROR_CODE);
 
   ret = 0;
   while (device.ptr->run())
     ret = loop[ret]->loop();
-  device.ptr->drop();
+
   // delete loop[1];
   delete loop[0];
+ exit:
+  device.ptr->drop();
   return (OK_CODE);
 }

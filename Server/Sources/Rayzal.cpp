@@ -43,7 +43,6 @@ void rayzal::ListenerThread::loop(void)
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	case ID_PLAYER_INFOS:
-	  // CREATE PLAYER ENTITY INTO core::Instance::PlayerList (push_back(new ...))
 		playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
 		playerInfo->nick[32] = 0;
 		playerInfo->uuid = core::UUID();
@@ -52,7 +51,6 @@ void rayzal::ListenerThread::loop(void)
 	  break;
 	case ID_INPUT:
 	  rayzal::ListenerThread::mutex.lock();
-	  // SET THE NEW VALUE OF INPUT FOR THE PLAYER (iterate through PlayerList and .setInput()
 	  inputPacket = (rayzal::InputPacket*)(packet->data);
 	  plIt = core::Instance::PlayerList.begin();
 	  while (plIt != core::Instance::PlayerList.end()) {
