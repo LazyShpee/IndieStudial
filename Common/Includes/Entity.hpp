@@ -14,8 +14,8 @@ struct EntityType {
 
 const EntityType EntityDescription[] =
   {
-    { 0, "mesh_player_car.obj" },
-    { 4, "mesh_player_truck.obj" },
+    { 0, ASSETS_DIR"/car/Avent.obj" },
+    { 4, ASSETS_DIR"/truck/Truck.obj" },
     { 5, "mesh_missile.obj" },
     { 0, 0 }
   };

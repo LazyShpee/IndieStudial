@@ -17,8 +17,26 @@ bool core::Instance::init(void)
 
 int core::Instance::loop(void)
 {
-  // INSERER ICI LE CODE QUI VA UPDATE LA CLOCK
+	RakNet::SystemAddress *addr = NULL;
+	unsigned short conn, i;
+	this->_peer->getPeer()->GetConnectionList(addr, &conn);
+	std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
+	const rayzal::EntityPacket *ent;
+	while (it != core::EntityList.cend()) {
+		i = 0;
+		while (i < conn) {
+			ent = (*it)->getPacket();
+			this->_peer->sendPacket(ent, addr[i]);
+			i++;
+		}
+		it++;
+	}
+	
+	// INSERER ICI LE CODE QUI VA UPDATE LA CLOCK
   // INSERER ICI LE CODE QUI VA UPDATE LES ENTITES ET LES ENVOYER PAR this->_peer
+
+  core::EntityList.cbegin();
+
   return (OK_CODE);
 }
 

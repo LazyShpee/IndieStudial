@@ -57,30 +57,20 @@ bool	core::GameLoop::_init(void)
   //     ennemy_node->setName("enemy");
   //   }
 
+  this->_player = new Entity(0, core::selfInfo.uuid, this->_device->smgr);
+
   this->_camera = new Camera(this->_device->ptr);
 
-  // this->_player->getNode()->setCollisions(this->_device->smgr);
-
-  // this->_before = this->_device->ptr->getTimer()->getTime();
   return (OK_CODE);
 }
 
 int	core::GameLoop::_loop(void)
 {
-  // ######################################################################################
-  // INSERER ICI LE CODE POUR ENVOYER core::Receiver::inputs
-  // >>>>>>> this->_peer->sendPacket<rayzal::InputPacket>( ......
-  // ######################################################################################
-  // const irr::u32 now = this->_device->ptr->getTimer()->getTime();
-  // const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f; // Time in seconds
-  // this->_before = now;
-
-  // if (core::Receiver::inputs & core::GUI_MENU)
-  //   return (OK_CODE);
-
-  // // Ce que charpe à rajouter
-  // if (!(core::Receiver::inputs & GAME_FIRE))
-  //   this->_player->stopped_fire = true;
+	rayzal::InputPacket inputPacket;
+	inputPacket.uuid = core::selfInfo.uuid;
+	inputPacket.PacketType = rayzal::ID_INPUT;
+	inputPacket.input = core::Receiver::inputs;
+	this->_peer->sendPacket(&inputPacket);
 
   if (core::Receiver::scroll != 0)
     {
@@ -88,12 +78,16 @@ int	core::GameLoop::_loop(void)
       core::Receiver::scroll = 0;
     }
 
-  // this->_player->update(dt);
-
-  // ############################################################################
-  // this->_camera->updateCamera(this->_player);
+  this->_camera->updateCamera(this->_player);
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
-  // INSERER ICI LE CODE QUI ITERATE A TRAVERS core::EntityList et qui render
+
+  std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
+  while (it != core::EntityList.cend()) {
+	  (*it)->getNode()->render();
+	  it++;
+  }
+
+  // INSERER ICI LE CODE QUI render la map
   // ############################################################################
 
   // this->_device->smgr->drawAll();

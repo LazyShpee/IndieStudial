@@ -52,9 +52,16 @@ void rayzal::ListenerThread::loop(void)
 	  break;
 	case ID_ENTER_GAME:
 	  rayzal::ListenerThread::mutex.lock();
+	  core::selfInfo.PacketType = ID_PLAYER_INFOS;
+	  memcpy(core::selfInfo.nick, "OMGPLAYER", 10);
+	  core::selfInfo.uuid = 0;
+	  this->_peer->sendPacket(&(core::selfInfo), 0);
 	  this->_wait = OK_CONNECTION;
 	  rayzal::ListenerThread::mutex.unlock();
 	  break;
+	case ID_PLAYER_INFOS:
+		core::selfInfo = *((rayzal::PlayerInfoPacket*)packet);
+		break;
 	case ID_GAME_INFOS:
 		core::gameInfo = *((rayzal::GameInfoPacket *)packet);
 	  break;
