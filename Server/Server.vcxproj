@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClCompile Include="..\Common\Sources\Entity.cpp" />
     <ClCompile Include="..\Common\Sources\Peer.cpp" />
+    <ClCompile Include="Sources\ConfigSelector.cpp" />
     <ClCompile Include="Sources\Instance.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Missile.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="..\Common\Includes\IncludeRaknet.hpp" />
     <ClInclude Include="..\Common\Includes\Peer.hpp" />
     <ClInclude Include="..\Common\Includes\Rayzal.hpp" />
+    <ClInclude Include="Includes\ConfigSelector.hpp" />
     <ClInclude Include="Includes\GMath.hpp" />
     <ClInclude Include="Includes\Instance.hpp" />
     <ClInclude Include="Includes\Missile.hpp" />
