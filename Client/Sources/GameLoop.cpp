@@ -80,14 +80,14 @@ int	core::GameLoop::_loop(void)
   this->_camera->updateCamera(this->_player);
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
 
-  this->_map_node->render();
-  std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
-  while (it != core::EntityList.cend()) {
-    std::cout << "blblblbl la loooooooooooooop" << std::endl;
-	  (*it)->getNode()->render();
-	  it++;
-  }
+  // std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
+  // while (it != core::EntityList.cend()) {
+  //   std::cout << "blblblbl la loooooooooooooop" << std::endl;
+  // 	  (*it)->getNode()->render();
+  // 	  it++;
+  // }
 
+  this->_device->smgr->drawAll();
   this->_device->driver->endScene();
   return (OK_CODE);
 }
