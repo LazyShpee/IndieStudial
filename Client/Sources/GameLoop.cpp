@@ -59,14 +59,17 @@ bool	core::GameLoop::_init(void)
 
   return (OK_CODE);
 }
-
+#include <iostream>
 int	core::GameLoop::_loop(void)
 {
-	rayzal::InputPacket inputPacket;
-	inputPacket.uuid = core::selfInfo.uuid;
-	inputPacket.PacketType = rayzal::ID_INPUT;
-	inputPacket.input = core::Receiver::inputs;
-	this->_peer->sendPacket(&inputPacket);
+  rayzal::InputPacket inputPacket;
+  inputPacket.uuid = core::selfInfo.uuid;
+  inputPacket.PacketType = rayzal::ID_INPUT;
+  inputPacket.input = core::Receiver::inputs;
+  this->_peer->sendPacket(&inputPacket);
+
+  if (core::Receiver::inputs & core::GUI_MENU)
+    return (ERROR_CODE);
 
   if (core::Receiver::scroll != 0)
     {
@@ -80,6 +83,7 @@ int	core::GameLoop::_loop(void)
   this->_map_node->render();
   std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
   while (it != core::EntityList.cend()) {
+    std::cout << "blblblbl la loooooooooooooop" << std::endl;
 	  (*it)->getNode()->render();
 	  it++;
   }

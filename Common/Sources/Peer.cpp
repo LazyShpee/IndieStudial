@@ -1,7 +1,7 @@
 #include "Peer.hpp"
 
 using namespace rayzal;
-
+#include <iostream>
 Peer::Peer(unsigned int port, unsigned int maxConnections) : peer(RakNet::RakPeerInterface::GetInstance())
 {
 	this->peer->SetMaximumIncomingConnections(maxConnections);

@@ -6,7 +6,7 @@
 # pragma comment(lib, "Irrlicht.lib")
 //# pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
-
+#include <iostream>
 /*
  * bonjour je suis le main
  * pour l'instant je contient l'init de la lib et la boucle de jeu
@@ -49,6 +49,7 @@ int main(int ac, char **av)
   rayzal::ListenerThread listener(device.smgr, &peer);
   while ((status = listener.wait_connection()) != OK_CONNECTION)
     {
+      std::cout << "bon j'attend..." << std::endl;
       if (status == ERROR_CODE)
         goto exit; // next update of this loop will be to try again the connection attempt
       SLEEP(500);
@@ -64,12 +65,12 @@ int main(int ac, char **av)
   //   return (ERROR_CODE);
 
   ret = 0;
-  while (device.ptr->run())
+  while (!ret && device.ptr->run())
     ret = loop[ret]->loop();
-
   // delete loop[1];
   delete loop[0];
  exit:
+  listener.join();
   device.ptr->drop();
   return (OK_CODE);
 }

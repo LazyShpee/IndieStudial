@@ -102,6 +102,7 @@ namespace rayzal
     void loop(void);
   public:
     int wait_connection(void) const;
+    void join(void);
   };
 }
 
