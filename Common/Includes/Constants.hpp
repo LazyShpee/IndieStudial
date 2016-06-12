@@ -4,6 +4,9 @@
 # define ERROR_CODE -1
 # define OK_CODE 0
 
+# define SHORT_BUFFER 32
+# define LONG_BUFFER 1024
+
 # define _USE_MATH_DEFINES
 # include <math.h>
 # include <cmath>

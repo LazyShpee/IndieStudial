@@ -70,14 +70,18 @@ namespace rayzal
 #pragma pack(push, 1)
   struct PlayerInfoPacket : public BasicPacket
   {
-	  char nick[32];
+    char nick[SHORT_BUFFER];
+    int life;
+    irr::u32 car_model[SHORT_BUFFER];
+    char car_name[SHORT_BUFFER];
+    char car_desc[1024];
   };
 #pragma pack(pop)
 
 #pragma pack(push, 1)
   struct GameInfoPacket: public BasicPacket
   {
-    char map_name[32];
+    char map_name[SHORT_BUFFER];
     PlayerInfoPacket player_list[NB_PLAYERS];
   };
 #pragma pack(pop)

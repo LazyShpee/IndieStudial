@@ -44,7 +44,7 @@ void rayzal::ListenerThread::loop(void)
 	  break;
 	case ID_PLAYER_INFOS:
 		playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
-		playerInfo->nick[32] = 0;
+		playerInfo->nick[SHORT_BUFFER] = 0;
 		playerInfo->uuid = core::UUID();
 		core::Instance::PlayerList.push_back(new Player(playerInfo->uuid, this->_smgr));
 		this->_peer->sendPacket(playerInfo, packet->systemAddress);

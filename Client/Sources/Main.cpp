@@ -1,5 +1,6 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
+#include <string.h>
 
 #ifdef _WIN32
 # pragma comment(lib, "Irrlicht.lib")
@@ -10,15 +11,29 @@
  * bonjour je suis le main
  * pour l'instant je contient l'init de la lib et la boucle de jeu
  */
-int main()
+int main(int ac, char **av)
 {
   core::device_t device;
   core::Receiver receiver;
   core::ILoop *loop[2];
   int ret;
   int status;
-  (void)core::selfInfo;
+  char const *address;
+  unsigned int port;
   (void)core::gameInfo;
+
+  if (ac != 4)
+    {
+      address = "localhost";
+      port = 4242U;
+      strcpy(core::selfInfo.nick, "ta maman");
+    }
+  else
+    {
+      address = *(av + 1);
+      port = atoi(*(av + 2));
+      strcpy(core::selfInfo.nick, *(av + 3));
+    }
 
   /* lib and device init */
   device.ptr = irr::createDevice(ivideo::EDT_OPENGL,
@@ -30,7 +45,7 @@ int main()
   device.smgr = device.ptr->getSceneManager();
   device.guienv = device.ptr->getGUIEnvironment();
 
-  rayzal::Peer peer("localhost");
+  rayzal::Peer peer(address, port);
   rayzal::ListenerThread listener(device.smgr, &peer);
   while ((status = listener.wait_connection()) != OK_CONNECTION)
     {
