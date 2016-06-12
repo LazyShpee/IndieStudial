@@ -30,7 +30,8 @@ SRC :=		Main.cpp \
 		Vehicle.cpp \
 		Entity.cpp \
 		Vector.cpp \
-		Missile.cpp
+		Missile.cpp \
+		ConfigSelector.cpp
 SRC :=		$(foreach var, $(SRC), \
 		$(if $(wildcard $(SRCDIR)/$(var)), $(SRCDIR), $(COMMON_SRCDIR))/$(var))
 OBJ :=		$(SRC:.cpp=.swag)

@@ -16,7 +16,7 @@ namespace ConfigSelector
 		struct Vehicle::Config* cfg;
 	};
 
-	static Config getConfigFromIni(const std::string &);
-};
+        Config getConfigFromIni(const std::string &);
+}
 
 #endif /* !CONFIGSELECTOR_HPP_ */
