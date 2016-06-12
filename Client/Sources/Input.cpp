@@ -15,7 +15,6 @@ core::Receiver::Receiver()
 	MOVE_STAP, GAME_FIRE, GUI_MENU, GUI_SCREEN }
 {
   int ct;
-
   ct = -1;
   while (++ct < KEYS_COUNT)
     this->match_irr_keys[this->_irr_keys[ct]] = this->_core_keys[ct];
