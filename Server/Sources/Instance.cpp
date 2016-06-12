@@ -2,6 +2,7 @@
 #include "Constants.hpp"
 
 std::vector<Player *> core::Instance::PlayerList;
+std::vector<irr::u32> core::Instance::ToDelteQueue;
 
 core::Instance::Instance(core::device_t *device, rayzal::Peer *peer)
   : _device(device), _peer(peer)

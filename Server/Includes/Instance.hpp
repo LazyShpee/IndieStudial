@@ -15,6 +15,7 @@ namespace core
     irr::u32 _before;
   public:
     static std::vector<Player *> PlayerList;
+    static std::vector<irr::u32> ToDelteQueue;
   public:
     Instance(core::device_t *device, rayzal::Peer *peer);
   public:
