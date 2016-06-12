@@ -20,8 +20,6 @@ int main()
 
   rayzal::Peer peer(4242);
   rayzal::ListenerThread listener(&peer);
-  // while (listener.getQueue())
-  //     usleep(500);
   core::Instance instance(&device, &peer);
   if (instance.init())
     return (ERROR_CODE);

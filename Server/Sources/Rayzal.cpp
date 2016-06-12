@@ -38,9 +38,6 @@ void rayzal::ListenerThread::loop(void)
 	  std::cout << "A remote system lost the connection." << std::endl;
 	  break;
 	case ID_ENTER_QUEUE:
-	  rayzal::ListenerThread::mutex.lock();
-	  this->_queue++;
-	  rayzal::ListenerThread::mutex.unlock();
 	  break;
 	case ID_PLAYER_INFOS:
 		playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
@@ -69,12 +66,4 @@ void rayzal::ListenerThread::loop(void)
       this->_peer->destroyPacket(packet);
     }
   return;
-}
-
-bool rayzal::ListenerThread::getQueue(void) const
-{
-  rayzal::ListenerThread::mutex.lock();
-  bool ret = this->_queue < NB_PLAYERS;
-  rayzal::ListenerThread::mutex.unlock();
-  return (!ret);
 }

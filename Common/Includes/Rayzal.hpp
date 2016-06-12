@@ -91,7 +91,6 @@ namespace rayzal
     std::thread *_thread;
     iscene::ISceneManager *_smgr;
     rayzal::Peer *_peer;
-    int _queue;
     int _wait;
   public:
     static std::mutex mutex;
@@ -102,7 +101,6 @@ namespace rayzal
   private:
     void loop(void);
   public:
-    bool getQueue(void) const;
     int wait_connection(void) const;
   };
 }
