@@ -52,7 +52,7 @@ void rayzal::ListenerThread::loop(void)
 	    this->_peer->sendPacket(playerInfo, packet->systemAddress);
 	    break;
 	  case ID_INPUT:
-	    std::cout << "ET BIIIM, DES INPUTS" << std::endl;
+	    // std::cout << "ET BIIIM, DES INPUTS" << std::endl;
 	    inputPacket = (rayzal::InputPacket*)(packet->data);
 	    plIt = core::Instance::PlayerList.begin();
 	    while (plIt != core::Instance::PlayerList.end()) {

@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include "Camera.hpp"
@@ -32,12 +34,12 @@ bool	core::GameLoop::_init(void)
   iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
   iscene::IMeshSceneNode			*map_node = 0;
   iscene::ISceneNode* skybox = this->_device->smgr->addSkyBoxSceneNode(
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"));
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"));
   skybox->setRotation(irr::core::vector3df(0.f, 0.f, 0.f));
 
   if (map)
@@ -52,10 +54,13 @@ bool	core::GameLoop::_init(void)
 	  }
   }
 
-  this->_player = new Entity(core::selfInfo.car_model, core::selfInfo.uuid, this->_device->smgr);
+  this->_player = new Entity(/*core::selfInfo.car_model*/42, core::selfInfo.uuid, this->_device->smgr);
 
   this->_camera = new Camera(this->_device->ptr);
 
+  std::ofstream outfile ("done");
+  outfile << "#JeSuisLegit" << std::endl;
+  outfile.close();
   return (OK_CODE);
 }
 

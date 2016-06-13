@@ -17,6 +17,7 @@ private:
   iscene::ISceneManager *smgr;
   std::vector<Missile *> _missiles;
   irr::u32 _input;
+  irr::u32 _lastPlayerSize;
 public:
   bool stopped_fire;
   bool has_missile;

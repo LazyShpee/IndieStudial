@@ -1,5 +1,6 @@
-#include <functional>
 #include <iostream>
+#include <fstream>
+#include <functional>
 
 #include "Constants.hpp"
 #include "IncludeIrrlicht.hpp"
@@ -117,6 +118,9 @@ int rayzal::ListenerThread::wait_connection(void) const
 
 void rayzal::ListenerThread::join(void)
 {
+  std::ofstream outfile ("done");
+  outfile << "#JeSuisLegit" << std::endl;
+  outfile.close();
   rayzal::ListenerThread::mutex.lock();
   this->_wait = ERROR_CODE;
   rayzal::ListenerThread::mutex.unlock();

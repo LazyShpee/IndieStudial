@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <math.h>
+#include "Instance.hpp"
 
 #define MOVE_SCALE 10
 
@@ -16,6 +17,9 @@ Player::Player(irr::u32 uuid, iscene::ISceneManager *smgr)
 	// Ce que charpe à rajouter
 	this->has_missile = false;
 	this->stopped_fire = false;
+
+	this->setCollisions(smgr);
+	this->_lastPlayerSize = core::Instance::PlayerList.size();
 }
 
 Player::~Player()
@@ -28,46 +32,54 @@ Entity * Player::getEntity() const {
 
 void Player::update(irr::f32 dt, iscene::ISceneManager *smgr)
 {
-	iscene::IAnimatedMeshSceneNode *node = this->entity->getNode();
-	icore::vector3df pos = node->getPosition();
-	icore::vector3df rot = node->getRotation();
+  unsigned int tmp;
+  if (this->_lastPlayerSize != (tmp = core::Instance::PlayerList.size()))
+    {
+      this->redoCollisions(smgr);
+      this->_lastPlayerSize = tmp;
+    }
 
-	Vector::Vec2 p(pos.X / MOVE_SCALE, pos.Z / MOVE_SCALE);
-	Vector::Vec2 kek = this->_vehicle.getPosition();
-	if (abs(p.x - kek.x) > 0.1 || abs(p.y - kek.y) > 0.001) {
-		std::cout << "Calmez vous !" << std::endl;
-		this->_vehicle.calmezVous(M_PI, 10.f);
-	}
+  iscene::IAnimatedMeshSceneNode *node = this->entity->getNode();
+  icore::vector3df pos = node->getPosition();
+  icore::vector3df rot = node->getRotation();
 
-	this->_vehicle.setPosition(p);
+  Vector::Vec2 p(pos.X / MOVE_SCALE, pos.Z / MOVE_SCALE);
+  Vector::Vec2 kek = this->_vehicle.getPosition();
+  if (abs(p.x - kek.x) > 0.1 || abs(p.y - kek.y) > 0.001)
+    {
+      std::cout << "Calmez vous !" << std::endl;
+      this->_vehicle.calmezVous(M_PI, 10.f);
+    }
 
-	this->_vehicle.update((double)dt);
-	
-	Vector::Vec2 vehiclePos = this->_vehicle.getPosition();
-	pos.X = vehiclePos.x * MOVE_SCALE;
-	pos.Z = vehiclePos.y * MOVE_SCALE;
-	rot.Y = (-this->_vehicle.getHeading() / M_PI * 180.f);
-	node->setPosition(pos);
-	node->setRotation(rot);
+  this->_vehicle.setPosition(p);
 
-	//Debug : pour tester ce qui collisionne :)
-	unsigned int i = 0;
-	while (i < this->entity->getWorldCollision().size())
+  this->_vehicle.update((double)dt);
+
+  Vector::Vec2 vehiclePos = this->_vehicle.getPosition();
+  pos.X = vehiclePos.x * MOVE_SCALE;
+  pos.Z = vehiclePos.y * MOVE_SCALE;
+  rot.Y = (-this->_vehicle.getHeading() / M_PI * 180.f);
+  node->setPosition(pos);
+  node->setRotation(rot);
+
+  //Debug : pour tester ce qui collisionne :)
+  unsigned int i = 0;
+  while (i < this->entity->getWorldCollision().size())
+    {
+      if (this->entity->getWorldCollision()[i]->collisionOccurred())
 	{
-		if (this->entity->getWorldCollision()[i]->collisionOccurred())
-		{
-			// irr::core::vector3df lole = 
-			  this->entity->getWorldCollision()[i]->getCollisionPoint();
-			// irr::core::vector3df keko = 
-			  this->entity->getNode()->getPosition();
-			//std::cout << lole.X << " - " << lole.Y << " - " << lole.Z << std::endl;
-		}
-		i++;
+	  // irr::core::vector3df lole = 
+	  this->entity->getWorldCollision()[i]->getCollisionPoint();
+	  // irr::core::vector3df keko = 
+	  this->entity->getNode()->getPosition();
+	  //std::cout << lole.X << " - " << lole.Y << " - " << lole.Z << std::endl;
 	}
+      i++;
+    }
 
-	// Ce que charpe à rajouter
-	if ((this->_input & core::GAME_FIRE) && this->stopped_fire)
-		fire_blipblipblipblipblip();
+  // Ce que charpe à rajouter
+  if ((this->_input & core::GAME_FIRE) && this->stopped_fire)
+    fire_blipblipblipblipblip();
 }
 
 void					Player::redoCollisions(iscene::ISceneManager *smgr)

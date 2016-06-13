@@ -1,8 +1,6 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include <string.h>
-#include <iostream>
-#include <fstream>
 
 #ifdef _WIN32
 # pragma comment(lib, "Irrlicht.lib")
@@ -66,21 +64,12 @@ int main(int ac, char **av)
   // if (loop[1]->init())
   //   return (ERROR_CODE);
 
-  std::ofstream outfile ("done");
-  outfile << "#JeSuisLegit" << std::endl;
-  outfile.close();
-
   ret = 0;
   while (!ret && device.ptr->run())
     ret = loop[ret]->loop();
   // delete loop[1];
   delete loop[0];
  exit:
-
-  std::ofstream outfile ("done");
-  outfile << "#JeSuisLegit" << std::endl;
-  outfile.close();
-
   listener.join();
   device.ptr->drop();
   return (OK_CODE);

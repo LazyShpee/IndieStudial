@@ -11,8 +11,18 @@ core::Instance::Instance(core::device_t *device, rayzal::Peer *peer)
 
 bool core::Instance::init(void)
 {
-	iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
-	iscene::IMeshSceneNode			*map_node = 0;
+  iscene::IAnimatedMesh *map = this->_device->smgr->getMesh(MAP_MESH_PATH);
+  iscene::IMeshSceneNode *map_node = 0;
+
+  if (map)
+    {
+      map_node = this->_device->smgr->addOctreeSceneNode(map->getMesh(0), 0, -1, 1024);
+      if (map_node)
+	{
+	  map_node->setPosition(icore::vector3df(150, 0, 100));
+	  map_node->setScale(icore::vector3df(10.0f, 10.0f, 10.0f));
+	}
+    }
   // INSERER ICI LA LOADATION DES MESH ET DES COLLISIONS
   this->_before = this->_device->ptr->getTimer()->getTime();
   return (OK_CODE);
@@ -25,11 +35,11 @@ int core::Instance::loop(void)
   this->_before = now;
   rayzal::ListenerThread::mutex.lock();
   // INSERER ICI LE CODE QUI VA ITERATE DANS core::Instance::PlayerList et faire .update(dt)
-  std::vector<Player*>::const_iterator it = core::Instance::PlayerList.cbegin();
-  while (it != core::Instance::PlayerList.cend())
+  std::vector<Player*>::const_iterator it_player = core::Instance::PlayerList.cbegin();
+  while (it_player != core::Instance::PlayerList.cend())
   {
-	  (*it)->update(dt);
-	  it++;
+    (*it_player)->update(dt, this->_device->smgr);
+	  it_player++;
   }
   RakNet::SystemAddress *addr = NULL;
   unsigned short conn, i;

@@ -3,6 +3,7 @@
 *.o
 *.out
 *.exe
+done
 indie
 client
 server
