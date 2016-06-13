@@ -18,7 +18,7 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 		i++;
 	}
 	if (!EntityDescription[i].meshPath)
-		i = 40;
+		i = 0;
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
@@ -77,10 +77,10 @@ rayzal::EntityPacket const * Entity::getPacket(void) const
 	rayzal::EntityPacket *packet = new rayzal::EntityPacket;
 	icore::vector3df pos = this->node->getPosition();
 	icore::vector3df rot = this->node->getRotation();
-
 	packet->EntityType = this->type;
 	packet->PacketType = rayzal::ID_ENTITY;
 	packet->uuid = this->uuid;
+
 	packet->px = pos.X;
 	packet->py = pos.Y;
 	packet->pz = pos.Z;

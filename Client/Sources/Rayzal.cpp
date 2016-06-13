@@ -48,9 +48,8 @@ void rayzal::ListenerThread::loop(void)
 	switch (packet->data[0])
 	  {
 	  case ID_CONNECTION_REQUEST_ACCEPTED:
-	    std::cout << core::getSelfInfo().nick << ": The connection request has been accepted." << std::endl;
-	    core::getSelfInfo().PacketType = rayzal::ID_PLAYER_INFOS;
-	    this->_peer->sendPacket(&core::getSelfInfo());
+	    std::cout << core::getSelfInfo()->nick << ": The connection request has been accepted." << std::endl;
+	    core::getSelfInfo()->PacketType = rayzal::ID_PLAYER_INFOS;
 	    break;
 	  case ID_NO_FREE_INCOMING_CONNECTIONS:
 	    std::cout << "No more free connections avalaible in server." << std::endl;
@@ -62,33 +61,35 @@ void rayzal::ListenerThread::loop(void)
 	    break;
 	  case ID_ENTER_GAME:
 	    std::cout << "OMG On entre dans la game." << std::endl;
-	    core::getSelfInfo().PacketType = rayzal::ID_PLAYER_INFOS;
-	    core::getSelfInfo().uuid = 0;
-	    this->_peer->sendPacket(&core::getSelfInfo(), 0);
+	    core::getSelfInfo()->PacketType = rayzal::ID_PLAYER_INFOS;
+	    core::getSelfInfo()->uuid = 0;
+	    this->_peer->sendPacket(core::getSelfInfo());
 	    this->_wait = OK_CONNECTION;
 	    break;
 
 	  case ID_PLAYER_INFOS:
-	    memcpy(&core::getSelfInfo(), packet->data, sizeof(rayzal::PlayerInfoPacket));
-	    std::cout << "Quelques infos sur le player: " << core::getSelfInfo().uuid << std::endl;
+	    memcpy(core::getSelfInfo(), packet->data, sizeof(rayzal::PlayerInfoPacket));
+	    std::cout << "Quelques infos sur le player: " << core::getSelfInfo()->uuid << std::endl;
 	    this->_wait = OK_CONNECTION;
 	    break;
 	  case ID_GAME_INFOS:
 	    std::cout << "Quelques infos sur la game." << std::endl;
-	    memcpy(&core::getGameInfo(), packet->data, sizeof(rayzal::GameInfoPacket));
+	    memcpy(core::getGameInfo(), packet->data, sizeof(rayzal::GameInfoPacket));
 	    break;
 
 	  case ID_ENTITY:
-	    std::cout << "OOOOMG une entité." << std::endl;
 	    entPacket = (rayzal::EntityPacket *)packet;
-	    entIt = core::getEntitylist().begin();
+		std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
+		entIt = core::getEntitylist().begin();
 	    foundEnt = false;
 	    while (entIt != core::getEntitylist().end()) {
-	      if ((*entIt)->getUUID() == entPacket->uuid) {
-		(*entIt)->applyPacket(entPacket);
-		foundEnt = true;
-		break;
-	      }
+			std::cout << (unsigned int)(*entIt)->getUUID() << " " << entPacket->uuid << std::endl;
+			if ((*entIt)->getUUID() == entPacket->uuid) {
+				std::cout << "APPLIQUEZ" << std::endl;
+				(*entIt)->applyPacket(entPacket);
+				foundEnt = true;
+				break;
+			}
 	      entIt++;
 	    }
 	    if (!foundEnt)

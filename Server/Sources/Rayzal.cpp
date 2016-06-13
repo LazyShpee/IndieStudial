@@ -27,7 +27,7 @@ void rayzal::ListenerThread::loop(void)
   RakNet::Packet *packet;
   rayzal::InputPacket *inputPacket;
   rayzal::PlayerInfoPacket *playerInfo;
-  // rayzal::BasicPacket bPacket;
+  rayzal::BasicPacket bPacket;
   std::vector<Player *>::const_iterator plIt;
   Player *pl;
   int rd;
@@ -41,8 +41,8 @@ void rayzal::ListenerThread::loop(void)
 	  {
 	  case ID_NEW_INCOMING_CONNECTION:
 	    std::cout << "A remote system has successfully connected." << std::endl;
-		// bPacket.PacketType = ID_ENTER_GAME;
-		// this->_peer->sendPacket(&bPacket, packet->systemAddress);
+		bPacket.PacketType = ID_ENTER_GAME;
+		this->_peer->sendPacket(&bPacket, packet->systemAddress);
 		break;
 	  case ID_DISCONNECTION_NOTIFICATION:
 	    std::cout << "A remote system has disconnected." << std::endl;
@@ -53,10 +53,9 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_ENTER_QUEUE:
 	    std::cout << "OMG un pédé." << std::endl;
 	    break;
-
 	  case ID_PLAYER_INFOS:
 	    playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
-	    playerInfo->uuid = playerInfo->uuid ? playerInfo->uuid : core::UUID();
+	    playerInfo->uuid = core::UUID();
 	    std::cout << "Quelques infos sur le player:" << playerInfo->uuid << std::endl;
 	    rd = rand() % 5 + 1;
 	    playerInfo->car_model = 39 + rd; // SHOULD BE RANDOM
@@ -75,7 +74,6 @@ void rayzal::ListenerThread::loop(void)
 	      std::cout << "ET BIIIM, DES INPUTS from: " << inputPacket->uuid << std::endl;
 	    plIt = core::Instance::PlayerList.begin();
 	    while (plIt != core::Instance::PlayerList.end()) {
-	      // std::cout << (*plIt)->getEntity()->getUUID() << std::endl;
 	      if (inputPacket->uuid == (*plIt)->getEntity()->getUUID()) {
 		(*plIt)->setInput(inputPacket->input);
 		break;

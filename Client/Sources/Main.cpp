@@ -21,7 +21,7 @@ int main(int ac, char **av)
 {
   core::device_t device;
   core::Receiver receiver;
-  core::ILoop *loop[2];
+  core::GameLoop *loop;
   int ret;
   int status;
   char const *address;
@@ -31,13 +31,13 @@ int main(int ac, char **av)
     {
       address = "localhost";
       port = 4242U;
-      memcpy(core::getSelfInfo().nick, "ta maman", 9);
+      memcpy(core::getSelfInfo()->nick, "ta maman", 9);
     }
   else
     {
       address = *(av + 1);
       port = atoi(*(av + 2));
-      memcpy(core::getSelfInfo().nick, *(av + 3), strlen(*(av + 3)));
+      memcpy(core::getSelfInfo()->nick, *(av + 3), strlen(*(av + 3)));
     }
 
   /* lib and device init */
@@ -59,21 +59,15 @@ int main(int ac, char **av)
         goto exit; // next update of this loop will be to try again the connection attempt
       SLEEP(500);
     }
-  std::cout << "bon la euh sa va c bon euh voila hein " << core::getSelfInfo().uuid << std::endl;
-  // MenuLoop will be defined here when it will be working ^^'
-  // and then another method of ListenerThread will be added to init the peer attempt
-  loop[0] = new core::GameLoop(&device, &peer);
-  // loop[1] = new core::MenuLoop(&device);
-  if (loop[0]->init())
+  std::cout << "bon la euh sa va c bon euh voila hein " << core::getSelfInfo()->uuid << std::endl;
+  loop = new core::GameLoop(&device, &peer);
+  if (loop->init())
     goto exit;
-  // if (loop[1]->init())
-  //   return (ERROR_CODE);
-
+  
   ret = 0;
   while (!ret && device.ptr->run())
-    ret = loop[ret]->loop();
-  // delete loop[1];
-  delete loop[0];
+    ret = loop->loop();
+  delete loop;
  exit:
   listener.join();
   device.ptr->drop();

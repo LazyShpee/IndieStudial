@@ -50,14 +50,13 @@ int core::Instance::loop(void)
   while (it != core::getEntitylist().cend()) {
     i = 0;
 	conn = 42;
-	std::cout << "lolol" << std::endl;
-	std::cout << this->_peer->getPeer()->GetConnectionList(addr, &conn) << std::endl;
-	std::cout << conn << " " << addr << std::endl;
-	while (addr && i < conn) {
-      ent = (*it)->getPacket();
+	ent = (*it)->getPacket();
+	this->_peer->getPeer()->GetConnectionList(addr, &conn);
+	while (i < conn) {
       this->_peer->sendPacket(ent, addr[i]);
       i++;
     }
+	delete ent;
     it++;
   }
 

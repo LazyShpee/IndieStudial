@@ -30,7 +30,9 @@ bool	core::GameLoop::_init(void)
   this->_device->smgr->addCameraSceneNode(0,
 	  icore::vector3df(0, 0, 0),
 	  icore::vector3df(0, 0, 0));	// Nodes and meshes to print 
+  std::cout << "kkkkkkk" << std::endl;
   iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
+  std::cout << "...................." << std::endl;
   iscene::IMeshSceneNode			*map_node = 0;
   iscene::ISceneNode* skybox = this->_device->smgr->addSkyBoxSceneNode(
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
@@ -39,7 +41,6 @@ bool	core::GameLoop::_init(void)
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"));
-  skybox->setRotation(irr::core::vector3df(0.f, 0.f, 0.f));
 
   if (map)
   {
@@ -52,9 +53,8 @@ bool	core::GameLoop::_init(void)
 		  map_node->setName("map");
 	  }
   }
-
-  this->_player = new Entity(/*core::selfInfo.car_model*/40, core::getSelfInfo().uuid, this->_device->smgr);
-
+  std::cout << "ooooooooooooooooooo" << std::endl;
+  this->_player = new Entity(/*core::selfInfo.car_model*/41, core::getSelfInfo()->uuid, this->_device->smgr);
   this->_camera = new Camera(this->_device->ptr);
 
   std::ofstream outfile ("done");
@@ -68,7 +68,7 @@ int	core::GameLoop::_loop(void)
   rayzal::InputPacket inputPacket;
 
   rayzal::ListenerThread::mutex.lock();
-  inputPacket.uuid = core::getSelfInfo().uuid;
+  inputPacket.uuid = core::getSelfInfo()->uuid;
   inputPacket.PacketType = rayzal::ID_INPUT;
   inputPacket.input = core::Receiver::inputs;
   rayzal::ListenerThread::mutex.unlock();
@@ -99,14 +99,14 @@ int	core::GameLoop::_loop(void)
 }
 
 
-rayzal::PlayerInfoPacket &core::getSelfInfo(void)
+rayzal::PlayerInfoPacket *core::getSelfInfo(void)
 {
   static rayzal::PlayerInfoPacket selfInfo;
-  return (selfInfo);
+  return (&selfInfo);
 }
 
-rayzal::GameInfoPacket &core::getGameInfo(void)
+rayzal::GameInfoPacket *core::getGameInfo(void)
 {
   static rayzal::GameInfoPacket gameInfo;
-  return (gameInfo);
+  return (&gameInfo);
 }
