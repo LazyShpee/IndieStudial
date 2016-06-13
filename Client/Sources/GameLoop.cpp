@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include "Camera.hpp"
@@ -15,23 +17,6 @@ core::GameLoop::~GameLoop(void)
 
 bool	core::GameLoop::_init(void)
 {
-  this->_device->smgr->
-    addCameraSceneNode(0, icore::vector3df(0,0,0),
-		       icore::vector3df(0,0,0));	// Nodes and meshes to print 
-  iscene::IAnimatedMesh *map =
-    this->_device->smgr->getMesh(ASSETS_DIR"/map/awp_india.obj");
-
-  if (map)
-    {
-      this->_map_node = this->_device->smgr->addOctreeSceneNode(map->getMesh(0), 0, -1, 1024);
-      if (this->_map_node)
-	{
-	  this->_map_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-	  this->_map_node->setPosition(icore::vector3df(0, 0, 0));
-	  this->_map_node->setName("map");
-	}
-    }
-
   (void)core::gameInfo;
   // ##########################################################################################
   // >>>>>>>>>>>>>> create a new entity from uuid from core::gameInfos <<<<<<<<<<<<<<<<<<<<<<<<
@@ -72,6 +57,10 @@ bool	core::GameLoop::_init(void)
   this->_player = new Entity(core::selfInfo.car_model, core::selfInfo.uuid, this->_device->smgr);
 
   this->_camera = new Camera(this->_device->ptr);
+
+  std::ofstream outfile (".done");
+  outfile << "#JeSuisLegit" << std::endl;
+  outfile.close();
 
   return (OK_CODE);
 }
