@@ -20,7 +20,6 @@ rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
 
 rayzal::ListenerThread::~ListenerThread(void)
 {
-  // INSERER ICI LE CODE QUI VA UNINITIALIZE LE SON OMG
   this->_thread->join();
   delete this->_thread;
 }
@@ -80,10 +79,11 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_ENTITY:
 	    entPacket = (rayzal::EntityPacket *)packet->data;
 		// std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
-		entIt = core::getEntitylist().begin();
+	    entIt = core::getEntitylist().begin();
 	    foundEnt = false;
 	    while (entIt != core::getEntitylist().end()) {
 			if ((*entIt)->getUUID() == entPacket->uuid) {
+			  std::cout << ">>>>>>> OMG: " << core::getEntitylist().size() << " <<<<<<<" << std::endl;
 				(*entIt)->applyPacket(entPacket);
 				foundEnt = true;
 				break;

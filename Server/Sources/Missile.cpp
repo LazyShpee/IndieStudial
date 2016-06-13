@@ -1,6 +1,7 @@
 #include "Missile.hpp"
+#include "Instance.hpp"
 
-Missile::Missile(iscene::ISceneNode *player, iscene::ISceneManager *smgr) : entity(new Entity(std::string(MISSILE_MESH_PATH), std::string("missile"), smgr))
+Missile::Missile(iscene::ISceneNode *player, iscene::ISceneManager *smgr) : entity(new Entity(47, core::UUID(), smgr))
 {
 	this->entity->getNode()->setPosition(icore::vector3df(player->getPosition().X, player->getPosition().Y + 20.f, player->getPosition().Z));
 	this->entity->getNode()->setRotation(player->getRotation());

@@ -17,12 +17,6 @@ core::GameLoop::~GameLoop(void)
 
 bool	core::GameLoop::_init(void)
 {
-  // ##########################################################################################
-  // >>>>>>>>>>>>>> create a new entity from uuid from core::gameInfos <<<<<<<<<<<<<<<<<<<<<<<<
-  //this->_player = new Player(std::string(ASSETS_DIR"/car/Avent.obj"),
-  //			     this->_device->smgr);
-  // ##########################################################################################
-
   this->_device->driver->setTextureCreationFlag(irr::video::ETCF_ALWAYS_32_BIT, true);
   this->_device->driver->setTextureCreationFlag(irr::video::ETCF_ALWAYS_16_BIT, false);
   this->_device->driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
@@ -30,17 +24,15 @@ bool	core::GameLoop::_init(void)
   this->_device->smgr->addCameraSceneNode(0,
 	  icore::vector3df(0, 0, 0),
 	  icore::vector3df(0, 0, 0));	// Nodes and meshes to print 
-  std::cout << "kkkkkkk" << std::endl;
   iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
-  std::cout << "...................." << std::endl;
   iscene::IMeshSceneNode			*map_node = 0;
-  /*iscene::ISceneNode* skybox =*/ this->_device->smgr->addSkyBoxSceneNode(
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
-	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"));
+  this->_device->smgr->
+    addSkyBoxSceneNode(this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+		       this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+		       this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+		       this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+		       this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
+		       this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"));
 
   if (map)
   {
@@ -53,8 +45,8 @@ bool	core::GameLoop::_init(void)
 		  map_node->setName("map");
 	  }
   }
-  std::cout << "ooooooooooooooooooo" << std::endl;
-  this->_player = new Entity(/*core::selfInfo.car_model*/41, core::getSelfInfo()->uuid, this->_device->smgr);
+
+  this->_player = new Entity(core::getSelfInfo()->car_model, core::getSelfInfo()->uuid, this->_device->smgr);
   this->_camera = new Camera(this->_device->ptr);
 
   std::ofstream outfile ("done");
@@ -85,14 +77,6 @@ int	core::GameLoop::_loop(void)
 
   this->_camera->updateCamera(this->_player);
   this->_device->driver->beginScene(true, true, ivideo::SColor(255,200,200,200));
-
-  // std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
-  // while (it != core::EntityList.cend()) {
-  //   std::cout << "blblblbl la loooooooooooooop" << std::endl;
-  // 	  (*it)->getNode()->render();
-  // 	  it++;
-  // }
-
   this->_device->smgr->drawAll();
   this->_device->driver->endScene();
   return (OK_CODE);

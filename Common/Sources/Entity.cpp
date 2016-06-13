@@ -1,12 +1,14 @@
 #include "IncludeIrrlicht.hpp"
 #include "Entity.hpp"
+#include <iostream>
 
-Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
-	this->mesh = smgr->getMesh(meshPath.c_str());
-	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
-	this->node->setName(name.c_str());
-	this->smgr = smgr;
-}
+// Entity::Entity(std::string const & meshPath, std::string const & name, iscene::ISceneManager *smgr) {
+// 	this->mesh = smgr->getMesh(meshPath.c_str());
+// 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
+// 	this->node->setName(name.c_str());
+// 	this->smgr = smgr;
+// 	std::cout << "OMG UNE NOUVELLE ENTITY" << std::endl;
+// }
 
 Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * smgr)
   : type(type), uuid(uuid), smgr(smgr)
@@ -24,6 +26,7 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
 	this->node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
 	core::getEntitylist().push_back(this);
+	std::cout << "OMG UNE NOUVELLE ENTITY" << std::endl;
 }
 
 Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)

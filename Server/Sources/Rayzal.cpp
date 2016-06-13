@@ -85,6 +85,7 @@ void rayzal::ListenerThread::loop(void)
 	    std::cout << "[" << packet->data[0] << "]" << std::endl;
 	    break;
 	  }
+	// std::cout << ">>>>> OMG: " << core::Instance::PlayerList.size() << " <<<<<<<<<" << std::endl;
 	rayzal::ListenerThread::mutex.unlock();
 	this->_peer->destroyPacket(packet);
       }
