@@ -15,7 +15,7 @@ CXXFLAGS :=	$(addprefix -I ,$(INCDIRS)) -W -Wall -Wextra -Werror -pedantic
 # link options
 #
 LINKER :=	$(CXX)
-LDFLAGS :=	-L ../Lib/irrKlang-64bit-1.5.0/bin/linux-gcc-64/
+LDFLAGS :=	-Wl,-rpath=../Lib/irrKlang-64bit-1.5.0/bin/linux-gcc-64/ -L ../Lib/irrKlang-64bit-1.5.0/bin/linux-gcc-64/
 LDLIBS :=	-l Irrlicht -l RakNetDLL -l pthread -l IrrKlang
 
 #
