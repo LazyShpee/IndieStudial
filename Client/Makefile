@@ -1,7 +1,7 @@
 #
 # paths
 #
-INCDIRS :=	./Includes ../Common/Includes
+INCDIRS :=	./Includes ../Common/Includes ../Lib/irrKlang-64bit-1.5.0/include/
 SRCDIR :=	./Sources
 COMMON_SRCDIR := ../Common/Sources
 
@@ -69,7 +69,7 @@ debug:		$(OBJ_DEBUG)
 #
 # installation rule
 #
-install:	re
+install:
 		mkdir -p ~/SuckMyWheels
 		cp -r ../Assets ~/SuckMyWheels
 		cp ./client ~/SuckMyWheels/SuckMyWheels

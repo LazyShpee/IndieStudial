@@ -34,7 +34,7 @@ int core::Instance::loop(void)
   const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f;
   this->_before = now;
   rayzal::ListenerThread::mutex.lock();
-  // INSERER ICI LE CODE QUI VA ITERATE DANS core::Instance::PlayerList et faire .update(dt)
+
   std::vector<Player*>::const_iterator it_player = core::Instance::PlayerList.cbegin();
   while (it_player != core::Instance::PlayerList.cend())
   {

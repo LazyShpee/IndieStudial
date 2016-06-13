@@ -22,6 +22,7 @@ Partial Class LauncherWindow
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(LauncherWindow))
         Me.DownloadButton = New System.Windows.Forms.Button()
         Me.ProgressBar = New System.Windows.Forms.ProgressBar()
@@ -32,6 +33,7 @@ Partial Class LauncherWindow
         Me.server_txt = New System.Windows.Forms.TextBox()
         Me.Close = New System.Windows.Forms.PictureBox()
         Me.About = New System.Windows.Forms.PictureBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Login.SuspendLayout()
         CType(Me.Close, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.About, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +141,9 @@ Partial Class LauncherWindow
         Me.About.TabIndex = 5
         Me.About.TabStop = False
         '
+        'Timer1
+        '
+        '
         'LauncherWindow
         '
         Me.AccessibleName = "MainWindow"
@@ -176,4 +181,5 @@ Partial Class LauncherWindow
     Friend WithEvents server_txt As TextBox
     Friend WithEvents Close As PictureBox
     Friend WithEvents About As PictureBox
+    Friend WithEvents Timer1 As Timer
 End Class

@@ -3,6 +3,7 @@
 Public Class LauncherWindow
     Dim strPath As String = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase).Substring(6)
     Dim exePath As String = Application.ExecutablePath()
+    Dim IrrLichtDone As Boolean = False
 
     Private Sub DownloadButton_Click(sender As Object, e As EventArgs) Handles DownloadButton.Click
         Dim sourceString As String = New System.Net.WebClient().DownloadString("http://petikek.eu/smw.kek")
@@ -46,14 +47,14 @@ Public Class LauncherWindow
     End Sub
 
     Private Sub Launcher_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If My.Computer.FileSystem.FileExists(strPath + "\SuckMyWheels\done") Then
+            My.Computer.FileSystem.DeleteFile((strPath + "\SuckMyWheels\done"))
+        End If
         Close.BackColor = Color.Transparent
         About.BackColor = Color.Transparent
         Login.BackColor = Color.Transparent
         server_txt.Text = "server ip"
         nick_txt.Text = "nickname"
-
-        Me.Hide()
-        Splash.Show()
 
         If My.Computer.FileSystem.DirectoryExists(strPath + "\SuckMyWheels") Then
             Login.Visible = True
@@ -118,6 +119,11 @@ Public Class LauncherWindow
         If My.Computer.FileSystem.FileExists(strPath + "\SuckMyWheels\Client.exe") Then
             Process.Start(strPath + "\SuckMyWheels\Client.exe", server_txt.Text + " " + port_txt.Text + " '" + nick_txt.Text + "'")
         End If
+        Process.Start("C:\Program Files (x86)\RAPTOR\raptor.exe")
+        Me.Hide()
+        Splash.Show()
+        Timer1.Interval = 10
+        Timer1.Enabled = True
     End Sub
 
 
@@ -152,7 +158,12 @@ Public Class LauncherWindow
         End If
     End Sub
 
-    Private Sub port_txt_TextChanged(sender As Object, e As EventArgs) Handles port_txt.TextChanged
-
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        If My.Computer.FileSystem.FileExists(strPath + "\SuckMyWheels\done") Then
+            My.Computer.FileSystem.DeleteFile((strPath + "\SuckMyWheels\done"))
+            IrrLichtDone = True
+            Splash.Hide()
+            Application.Exit()
+        End If
     End Sub
 End Class
