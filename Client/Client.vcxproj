@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Common\Includes;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Lib\RakNet\Lib;$(SolutionDir)Lib\irrlicht-1.8.3\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Lib\irrKlang-1.5.0\include;$(SolutionDir)Lib\irrlicht-1.8.3\include;$(SolutionDir)Common\Includes;$(SolutionDir)Lib\RakNet\Source;$(ProjectDir)Includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Lib\irrKlang-1.5.0\lib\Win32-visualStudio;$(SolutionDir)Lib\RakNet\Lib;$(SolutionDir)Lib\irrlicht-1.8.3\lib\Win32-visualstudio;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)Sources</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,6 +130,7 @@
     <ClCompile Include="Sources\Camera.cpp" />
     <ClCompile Include="Sources\GameLoop.cpp" />
     <ClCompile Include="Sources\Input.cpp" />
+    <ClCompile Include="Sources\irrKlangSceneNode.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\MenuLoop.cpp" />
     <ClCompile Include="Sources\Rayzal.cpp" />
@@ -142,7 +143,9 @@
     <ClInclude Include="..\Common\Includes\Peer.hpp" />
     <ClInclude Include="..\Common\Includes\Rayzal.hpp" />
     <ClInclude Include="Includes\Camera.hpp" />
+    <ClInclude Include="Includes\irrKlangSceneNode.hpp" />
     <ClInclude Include="Includes\Loop.hpp" />
+    <ClInclude Include="Includes\Sound.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

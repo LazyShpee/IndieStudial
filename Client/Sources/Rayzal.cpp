@@ -6,6 +6,7 @@
 #include "Rayzal.hpp"
 #include "Entity.hpp"
 #include "Loop.hpp"
+#include "Sound.hpp"
 
 std::mutex rayzal::ListenerThread::mutex;
 
@@ -14,7 +15,6 @@ rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
   : _smgr(smgr), _peer(peer), _wait(OK_CODE)
 {
   this->_thread = new std::thread(&rayzal::ListenerThread::loop, this);
-  // INSERER ICI LE CODE QUI VA INITIALISER LE SON OMG
 }
 
 rayzal::ListenerThread::~ListenerThread(void)
@@ -29,8 +29,17 @@ void rayzal::ListenerThread::loop(void)
   RakNet::Packet *packet;
   rayzal::BasicPacket *basicPacket;
   rayzal::EntityPacket *entPacket;
+  rayzal::SoundPacket *sndPacket;
   std::vector<Entity *>::iterator entIt;
   bool foundEnt;
+  int i;
+
+  irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice(irrklang::ESOD_CORE_AUDIO);
+  soundNode = new CIrrKlangSceneNode(soundEngine, _smgr->getRootSceneNode(), _smgr, 666);
+  soundNode->setSoundFileName(SoundDescription[1].soundPath);
+  soundNode->setMinMaxSoundDistance(30.0f);
+  soundNode->setLoopingStreamMode();
+
   while (this->wait_connection() != ERROR_CODE)
     if ((packet = this->_peer->receive()))
       {
@@ -93,8 +102,18 @@ void rayzal::ListenerThread::loop(void)
 	    }
 	    break;
 	  case ID_SOUND:
-	    // INSERER ICI LE CODE QUI VA LIRE LE SON DECRIT DANS rayzal::SoundPacket
-	    break;
+		  sndPacket = (rayzal::SoundPacket *)packet;
+		  for (i = 0; SoundDescription[i].soundPath != 0 && SoundDescription[i].type != sndPacket->sound_id; i++);
+		  if (SoundDescription[i].soundPath != 0)
+		  {
+			  soundNode->setSoundFileName(SoundDescription[i].soundPath);
+			  soundNode->setMinMaxSoundDistance(300.0f);
+			  if (sndPacket->loop)
+				  soundNode->setLoopingStreamMode();
+			  else
+				  soundNode->setPlayOnceMode();
+		  }
+		  break;
 	  default:
 	    std::cout << "[" << packet->data[0] << "]" << std::endl;
 	    break;
