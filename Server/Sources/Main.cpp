@@ -4,6 +4,13 @@
 #include "Rayzal.hpp"
 #include "Constants.hpp"
 
+
+std::vector<Entity *> &core::getEntitylist(void)
+{
+  static std::vector<Entity *> EntityList;
+  return (EntityList);
+}
+
 int main()
 {
   core::device_t device;

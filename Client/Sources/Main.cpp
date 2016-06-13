@@ -6,6 +6,13 @@
 //# pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 #include <iostream>
+
+std::vector<Entity *> &core::getEntitylist(void)
+{
+  static std::vector<Entity *> EntityList;
+  return (EntityList);
+}
+
 /*
  * bonjour je suis le main
  * pour l'instant je contient l'init de la lib et la boucle de jeu
@@ -19,19 +26,18 @@ int main(int ac, char **av)
   int status;
   char const *address;
   unsigned int port;
-  (void)core::gameInfo;
 
   if (ac != 4)
     {
       address = "localhost";
       port = 4242U;
-      memcpy(core::selfInfo.nick, "ta maman", 9);
+      memcpy(core::getSelfInfo().nick, "ta maman", 9);
     }
   else
     {
       address = *(av + 1);
       port = atoi(*(av + 2));
-      memcpy(core::selfInfo.nick, *(av + 3), strlen(*(av + 3)));
+      memcpy(core::getSelfInfo().nick, *(av + 3), strlen(*(av + 3)));
     }
 
   /* lib and device init */
@@ -53,7 +59,7 @@ int main(int ac, char **av)
         goto exit; // next update of this loop will be to try again the connection attempt
       SLEEP(500);
     }
-
+  std::cout << "bon la euh sa va c bon euh voila hein " << core::getSelfInfo().uuid << std::endl;
   // MenuLoop will be defined here when it will be working ^^'
   // and then another method of ListenerThread will be added to init the peer attempt
   loop[0] = new core::GameLoop(&device, &peer);

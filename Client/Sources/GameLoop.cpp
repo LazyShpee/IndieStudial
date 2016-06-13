@@ -17,7 +17,6 @@ core::GameLoop::~GameLoop(void)
 
 bool	core::GameLoop::_init(void)
 {
-  (void)core::gameInfo;
   // ##########################################################################################
   // >>>>>>>>>>>>>> create a new entity from uuid from core::gameInfos <<<<<<<<<<<<<<<<<<<<<<<<
   //this->_player = new Player(std::string(ASSETS_DIR"/car/Avent.obj"),
@@ -54,7 +53,7 @@ bool	core::GameLoop::_init(void)
 	  }
   }
 
-  this->_player = new Entity(/*core::selfInfo.car_model*/40, core::selfInfo.uuid, this->_device->smgr);
+  this->_player = new Entity(/*core::selfInfo.car_model*/40, core::getSelfInfo().uuid, this->_device->smgr);
 
   this->_camera = new Camera(this->_device->ptr);
 
@@ -67,9 +66,12 @@ bool	core::GameLoop::_init(void)
 int	core::GameLoop::_loop(void)
 {
   rayzal::InputPacket inputPacket;
-  inputPacket.uuid = core::selfInfo.uuid;
+
+  rayzal::ListenerThread::mutex.lock();
+  inputPacket.uuid = core::getSelfInfo().uuid;
   inputPacket.PacketType = rayzal::ID_INPUT;
   inputPacket.input = core::Receiver::inputs;
+  rayzal::ListenerThread::mutex.unlock();
   this->_peer->sendPacket(&inputPacket);
 
   if (core::Receiver::inputs & core::GUI_MENU)
@@ -94,4 +96,17 @@ int	core::GameLoop::_loop(void)
   this->_device->smgr->drawAll();
   this->_device->driver->endScene();
   return (OK_CODE);
+}
+
+
+rayzal::PlayerInfoPacket &core::getSelfInfo(void)
+{
+  static rayzal::PlayerInfoPacket selfInfo;
+  return (selfInfo);
+}
+
+rayzal::GameInfoPacket &core::getGameInfo(void)
+{
+  static rayzal::GameInfoPacket gameInfo;
+  return (gameInfo);
 }

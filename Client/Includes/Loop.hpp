@@ -66,8 +66,8 @@ namespace core
     int _loop(void);
   };
 
-  static rayzal::GameInfoPacket gameInfo;
-  static rayzal::PlayerInfoPacket selfInfo;
+  rayzal::PlayerInfoPacket &getSelfInfo(void);
+  rayzal::GameInfoPacket &getGameInfo(void);
 
 //   // you can stop read from here, this code will not be used
 //   template <class T>

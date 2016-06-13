@@ -9,8 +9,6 @@ core::MenuLoop::MenuLoop(device_t *device)
 
 bool	core::MenuLoop::_init(void)
 {
-  (void)core::gameInfo;
-  (void)core::selfInfo;
   this->_device->smgr->addCameraSceneNode(0,
 				    icore::vector3df(0,0,0),
 				    icore::vector3df(0,0,0));

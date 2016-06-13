@@ -89,8 +89,8 @@ namespace rayzal
   class ListenerThread
   {
     std::thread *_thread;
-    iscene::ISceneManager *_smgr;
     rayzal::Peer *_peer;
+    iscene::ISceneManager *_smgr;
     int _wait;
   public:
     static std::mutex mutex;

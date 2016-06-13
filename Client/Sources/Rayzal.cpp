@@ -13,7 +13,7 @@ std::mutex rayzal::ListenerThread::mutex;
 
 rayzal::ListenerThread::ListenerThread(iscene::ISceneManager *smgr,
 				       rayzal::Peer *peer)
-  : _smgr(smgr), _peer(peer), _wait(OK_CODE)
+  : _peer(peer), _smgr(smgr), _wait(OK_CODE)
 {
   this->_thread = new std::thread(&rayzal::ListenerThread::loop, this);
 }
@@ -29,7 +29,6 @@ void rayzal::ListenerThread::loop(void)
 {
   RakNet::Packet *packet;
   rayzal::BasicPacket *basicPacket;
-  rayzal::PlayerInfoPacket pPacket;
   rayzal::EntityPacket *entPacket;
   rayzal::SoundPacket *sndPacket;
   std::vector<Entity *>::iterator entIt;
@@ -49,9 +48,9 @@ void rayzal::ListenerThread::loop(void)
 	switch (packet->data[0])
 	  {
 	  case ID_CONNECTION_REQUEST_ACCEPTED:
-	    std::cout << "The connection request has been accepted." << std::endl;
-	    this->_wait = OK_CONNECTION;
-		this->_peer->sendPacket(&(core::selfInfo));
+	    std::cout << core::getSelfInfo().nick << ": The connection request has been accepted." << std::endl;
+	    core::getSelfInfo().PacketType = rayzal::ID_PLAYER_INFOS;
+	    this->_peer->sendPacket(&core::getSelfInfo());
 	    break;
 	  case ID_NO_FREE_INCOMING_CONNECTIONS:
 	    std::cout << "No more free connections avalaible in server." << std::endl;
@@ -63,26 +62,28 @@ void rayzal::ListenerThread::loop(void)
 	    break;
 	  case ID_ENTER_GAME:
 	    std::cout << "OMG On entre dans la game." << std::endl;
-	    core::selfInfo.PacketType = ID_PLAYER_INFOS;
-	    core::selfInfo.uuid = 0;
-	    this->_peer->sendPacket(&(core::selfInfo), 0);
+	    core::getSelfInfo().PacketType = rayzal::ID_PLAYER_INFOS;
+	    core::getSelfInfo().uuid = 0;
+	    this->_peer->sendPacket(&core::getSelfInfo(), 0);
 	    this->_wait = OK_CONNECTION;
 	    break;
+
 	  case ID_PLAYER_INFOS:
-	    std::cout << "Quelques infos sur le player." << std::endl;
-	    core::selfInfo = *((rayzal::PlayerInfoPacket*)packet);
-		std::cout << "Got UUID !!" << std::endl;
+	    memcpy(&core::getSelfInfo(), packet->data, sizeof(rayzal::PlayerInfoPacket));
+	    std::cout << "Quelques infos sur le player: " << core::getSelfInfo().uuid << std::endl;
+	    this->_wait = OK_CONNECTION;
 	    break;
 	  case ID_GAME_INFOS:
 	    std::cout << "Quelques infos sur la game." << std::endl;
-	    core::gameInfo = *((rayzal::GameInfoPacket *)packet);
+	    memcpy(&core::getGameInfo(), packet->data, sizeof(rayzal::GameInfoPacket));
 	    break;
+
 	  case ID_ENTITY:
 	    std::cout << "OOOOMG une entité." << std::endl;
 	    entPacket = (rayzal::EntityPacket *)packet;
-	    entIt = core::EntityList.begin();
+	    entIt = core::getEntitylist().begin();
 	    foundEnt = false;
-	    while (entIt != core::EntityList.end()) {
+	    while (entIt != core::getEntitylist().end()) {
 	      if ((*entIt)->getUUID() == entPacket->uuid) {
 		(*entIt)->applyPacket(entPacket);
 		foundEnt = true;
@@ -95,8 +96,8 @@ void rayzal::ListenerThread::loop(void)
 	    break;
 	  case ID_DELETE:
 	    basicPacket = (rayzal::BasicPacket *)packet;
-	    entIt = core::EntityList.begin();
-	    while (entIt != core::EntityList.end()) {
+	    entIt = core::getEntitylist().begin();
+	    while (entIt != core::getEntitylist().end()) {
 	      if ((*entIt)->getUUID() == basicPacket->uuid) {
 		(*entIt)->applyPacket(basicPacket);
 		break;

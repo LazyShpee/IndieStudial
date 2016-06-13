@@ -56,8 +56,8 @@ namespace core
     iscene::ISceneManager *smgr;
     igui::IGUIEnvironment *guienv;
   };
- 
-  static std::vector<Entity *> EntityList;
+
+  std::vector<Entity *> &getEntitylist(void);
 }
 
 #endif // INCLUDE_IRRLICHT_HPP_

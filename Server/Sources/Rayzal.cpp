@@ -27,11 +27,12 @@ void rayzal::ListenerThread::loop(void)
   RakNet::Packet *packet;
   rayzal::InputPacket *inputPacket;
   rayzal::PlayerInfoPacket *playerInfo;
-  rayzal::BasicPacket bPacket;
+  // rayzal::BasicPacket bPacket;
   std::vector<Player *>::const_iterator plIt;
   Player *pl;
   int rd;
   ConfigSelector::Config conf;
+
   while (42)
     if ((packet = this->_peer->receive()))
       {
@@ -40,8 +41,8 @@ void rayzal::ListenerThread::loop(void)
 	  {
 	  case ID_NEW_INCOMING_CONNECTION:
 	    std::cout << "A remote system has successfully connected." << std::endl;
-		bPacket.PacketType = ID_ENTER_GAME;
-		this->_peer->sendPacket(&bPacket, packet->systemAddress);
+		// bPacket.PacketType = ID_ENTER_GAME;
+		// this->_peer->sendPacket(&bPacket, packet->systemAddress);
 		break;
 	  case ID_DISCONNECTION_NOTIFICATION:
 	    std::cout << "A remote system has disconnected." << std::endl;
@@ -52,26 +53,31 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_ENTER_QUEUE:
 	    std::cout << "OMG un pédé." << std::endl;
 	    break;
+
 	  case ID_PLAYER_INFOS:
-	    std::cout << "Quelques infos sur le player." << std::endl;
 	    playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
 	    playerInfo->uuid = playerInfo->uuid ? playerInfo->uuid : core::UUID();
-		rd = rand() % 5 + 1;
-		playerInfo->car_model = 39 + rd; // SHOULD BE RANDOM
-		pl = new Player(playerInfo->uuid, playerInfo->car_model, this->_smgr);
-		core::Instance::PlayerList.push_back(pl);
-		pl->setConfig(Vehicle::getDefaultConfig());
-		memcpy(playerInfo->car_desc, conf.car_desc.c_str(), conf.car_desc.length());
-		memcpy(playerInfo->car_name, conf.car_name.c_str(), conf.car_name.length());
-		conf = ConfigSelector::getConfigFromIni(std::string("conf") + static_cast<std::ostringstream*>(&(std::ostringstream() << rd))->str() + std::string(".ini"));
-		this->_peer->sendPacket(playerInfo, packet->systemAddress);
+	    std::cout << "Quelques infos sur le player:" << playerInfo->uuid << std::endl;
+	    rd = rand() % 5 + 1;
+	    playerInfo->car_model = 39 + rd; // SHOULD BE RANDOM
+	    pl = new Player(playerInfo->uuid, playerInfo->car_model, this->_smgr);
+	    core::Instance::PlayerList.push_back(pl);
+	    pl->setConfig(Vehicle::getDefaultConfig());
+	    memcpy(playerInfo->car_desc, conf.car_desc.c_str(), conf.car_desc.length());
+	    memcpy(playerInfo->car_name, conf.car_name.c_str(), conf.car_name.length());
+	    conf = ConfigSelector::getConfigFromIni(std::string("conf") + static_cast<std::ostringstream*>(&(std::ostringstream() << rd))->str() + std::string(".ini"));
+	    this->_peer->sendPacket(playerInfo, packet->systemAddress);
 	    break;
+
 	  case ID_INPUT:
-	    // std::cout << "ET BIIIM, DES INPUTS" << std::endl;
 	    inputPacket = (rayzal::InputPacket*)(packet->data);
+	    if (inputPacket->input)
+	      std::cout << "ET BIIIM, DES INPUTS from: " << inputPacket->uuid << std::endl;
 	    plIt = core::Instance::PlayerList.begin();
 	    while (plIt != core::Instance::PlayerList.end()) {
+	      // std::cout << (*plIt)->getEntity()->getUUID() << std::endl;
 	      if (inputPacket->uuid == (*plIt)->getEntity()->getUUID()) {
+		std::cout << "ET BIIIM, ON SET L'INPUT OMG !!" << std::endl;
 		(*plIt)->setInput(inputPacket->input);
 		break;
 	      }

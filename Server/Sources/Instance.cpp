@@ -46,9 +46,9 @@ int core::Instance::loop(void)
   RakNet::SystemAddress *addr = NULL;
   unsigned short conn, i;
   this->_peer->getPeer()->GetConnectionList(addr, &conn);
-  std::vector<Entity *>::const_iterator it = core::EntityList.cbegin();
+  std::vector<Entity *>::const_iterator it = core::getEntitylist().cbegin();
   const rayzal::EntityPacket *ent;
-  while (it != core::EntityList.cend()) {
+  while (it != core::getEntitylist().cend()) {
     i = 0;
 	std::cout << "lolol" << std::endl;
     while (i < conn) {
@@ -65,11 +65,11 @@ int core::Instance::loop(void)
 }
 
 irr::u32 core::UUID() {
-	std::vector<Entity *>::const_iterator it = core::EntityList.begin();
+  std::vector<Entity *>::const_iterator it = core::getEntitylist().begin();
 	irr::u32 uuid = 0;
 	while (uuid == 0) {
 		uuid = (irr::u32)rand();
-		while (it != core::EntityList.end()) {
+		while (it != core::getEntitylist().end()) {
 			if ((*it)->getUUID() == uuid) {
 				uuid = 0;
 				break;
