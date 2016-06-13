@@ -22,14 +22,14 @@ namespace rayzal
 
     RakNet::SystemAddress getConnectedSystem(unsigned int id = 0) const;
 	template<class T>
-	void sendPacket(T* packetStruct, unsigned int clientID = 0, PacketReliability reliability = RELIABLE_ORDERED)
+	void sendPacket(T* packetStruct, unsigned int clientID = 0, PacketReliability reliability = UNRELIABLE)
 	{
-		this->peer->Send((char *)packetStruct, sizeof(*packetStruct), HIGH_PRIORITY, reliability, 0, getConnectedSystem(clientID), false);
+		this->peer->Send((char *)packetStruct, sizeof(*packetStruct), IMMEDIATE_PRIORITY, reliability, 0, getConnectedSystem(clientID), false);
 	}
 	template<class T>
-	void sendPacket(T* packetStruct, RakNet::SystemAddress const & addr, PacketReliability reliability = RELIABLE_ORDERED)
+	void sendPacket(T* packetStruct, RakNet::SystemAddress const & addr, PacketReliability reliability = UNRELIABLE)
 	{
-		this->peer->Send((char *)packetStruct, sizeof(*packetStruct), HIGH_PRIORITY, reliability, 0, addr, false);
+		this->peer->Send((char *)packetStruct, sizeof(*packetStruct), IMMEDIATE_PRIORITY, reliability, 0, addr, false);
 	}
   };
 }

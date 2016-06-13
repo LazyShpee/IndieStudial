@@ -78,20 +78,22 @@ void rayzal::ListenerThread::loop(void)
 
 	  case ID_ENTITY:
 	    entPacket = (rayzal::EntityPacket *)packet->data;
-		// std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
+		//std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
 	    entIt = core::getEntitylist().begin();
 	    foundEnt = false;
 	    while (entIt != core::getEntitylist().end()) {
 			if ((*entIt)->getUUID() == entPacket->uuid) {
-			  
 				(*entIt)->applyPacket(entPacket);
 				foundEnt = true;
 				break;
 			}
 	      entIt++;
 	    }
-	    if (!foundEnt)
-	      new Entity(entPacket, this->_smgr);
+		if (!foundEnt)
+		{
+			std::cout << "lololole" << std::endl;
+			new Entity(entPacket, this->_smgr);
+		}
 	    break;
 	  case ID_DELETE:
 	    basicPacket = (rayzal::BasicPacket *)packet->data;

@@ -46,7 +46,7 @@ bool	core::GameLoop::_init(void)
 	  }
   }
 
-  this->_player = new Entity(core::getSelfInfo()->car_model, core::getSelfInfo()->uuid, this->_device->smgr);
+ this->_player = new Entity(core::getSelfInfo()->car_model, core::getSelfInfo()->uuid, this->_device->smgr);
   this->_camera = new Camera(this->_device->ptr);
 
   std::ofstream outfile ("done");

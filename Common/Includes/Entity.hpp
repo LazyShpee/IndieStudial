@@ -47,7 +47,7 @@ public:
   //void setWorldCollision(std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> worldCollision);
   void addWorldCollision(iscene::ISceneNodeAnimatorCollisionResponse *anim);
   std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> getWorldCollision() const;
-  rayzal::EntityPacket const *getPacket(void) const;
+  rayzal::EntityPacket  *getPacket(void) const;
 
   void applyPacket(rayzal::EntityPacket const *packet);
   void applyPacket(rayzal::BasicPacket const *packet);

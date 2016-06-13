@@ -27,8 +27,12 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
 	this->node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
 	core::getEntitylist().push_back(this);
-	std::cout << "OMG UNE NOUVELLE ENTITY" << std::endl;
+	std::cout << "construct 1" << std::endl;
+	//std::cout << "OMG UNE NOUVELLE ENTITY" << std::endl;
 }
+
+
+
 
 Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
   : type(packet->EntityType), uuid(packet->uuid), smgr(smgr)
@@ -43,10 +47,12 @@ Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
 		i = 0;
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
-	this->node->setPosition(icore::vector3df(-600, 0, 100));
+	this->node->setPosition(icore::vector3df(-500, 0, 100));
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
 	this->node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
 	core::getEntitylist().push_back(this);
+
+	std::cout << "construct 2" << std::endl;
 }
 
 Entity::~Entity() {
@@ -77,7 +83,7 @@ std::vector<iscene::ISceneNodeAnimatorCollisionResponse*> Entity::getWorldCollis
 	return (this->worldCollision);
 }
 
-rayzal::EntityPacket const * Entity::getPacket(void) const
+rayzal::EntityPacket * Entity::getPacket(void) const
 {
 	rayzal::EntityPacket *packet = new rayzal::EntityPacket;
 	icore::vector3df pos = this->node->getPosition();
@@ -97,8 +103,6 @@ rayzal::EntityPacket const * Entity::getPacket(void) const
 
 void Entity::applyPacket(rayzal::EntityPacket const * packet)
 {
-	if (packet->uuid != this->uuid)
-		return;
 	icore::vector3df pos(packet->px, packet->py, packet->pz);
 	icore::vector3df rot(packet->rx, packet->ry, packet->rz);
 	this->node->setPosition(pos);
@@ -110,16 +114,6 @@ void Entity::applyPacket(rayzal::BasicPacket const * packet)
 	if (packet->uuid == this->uuid && packet->PacketType == rayzal::ID_DELETE) {
 		delete this;
 	}
-}
-
-void Entity::updateEntity(rayzal::EntityPacket const *packet)
-{
-	if (packet->uuid != this->uuid)
-		return;
-	icore::vector3df pos(packet->px, packet->py, packet->pz);
-	icore::vector3df rot(packet->rx, packet->ry, packet->rz);
-	this->node->setPosition(pos);
-	this->node->setRotation(rot);
 }
 
 irr::u32 Entity::getUUID() {

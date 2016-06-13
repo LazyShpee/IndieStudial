@@ -57,7 +57,7 @@ void rayzal::ListenerThread::loop(void)
 	    playerInfo = (rayzal::PlayerInfoPacket*)(packet->data);
 	    playerInfo->uuid = core::UUID();
 	    std::cout << "Quelques infos sur le player:" << playerInfo->uuid << std::endl;
-	    rd = rand() % 5 + 1;
+	    rd = rand() % 7 + 1;
 	    playerInfo->car_model = 39 + rd; // SHOULD BE RANDOM
 	    pl = new Player(playerInfo->uuid, playerInfo->car_model, this->_smgr);
 	    core::Instance::PlayerList.push_back(pl);

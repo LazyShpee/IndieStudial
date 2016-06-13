@@ -46,13 +46,14 @@ int core::Instance::loop(void)
   RakNet::SystemAddress addr[42];
   unsigned short conn, i;
   std::vector<Entity *>::const_iterator it = core::getEntitylist().cbegin();
-  const rayzal::EntityPacket *ent;
+  rayzal::EntityPacket *ent;
   while (it != core::getEntitylist().cend()) {
     i = 0;
 	conn = 42;
 	ent = (*it)->getPacket();
 	this->_peer->getPeer()->GetConnectionList(addr, &conn);
 	while (i < conn) {
+		ent->EntityType = rayzal::ID_ENTITY;
       this->_peer->sendPacket(ent, addr[i]);
       i++;
     }
