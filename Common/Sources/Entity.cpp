@@ -35,6 +35,8 @@ Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
 			break;
 		i++;
 	}
+	if (!EntityDescription[i].meshPath)
+		i = 0;
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));

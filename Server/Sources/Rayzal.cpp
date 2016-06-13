@@ -77,7 +77,6 @@ void rayzal::ListenerThread::loop(void)
 	    while (plIt != core::Instance::PlayerList.end()) {
 	      // std::cout << (*plIt)->getEntity()->getUUID() << std::endl;
 	      if (inputPacket->uuid == (*plIt)->getEntity()->getUUID()) {
-		std::cout << "ET BIIIM, ON SET L'INPUT OMG !!" << std::endl;
 		(*plIt)->setInput(inputPacket->input);
 		break;
 	      }

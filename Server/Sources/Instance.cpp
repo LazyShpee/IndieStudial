@@ -43,15 +43,17 @@ int core::Instance::loop(void)
     (*it_player)->update(dt, this->_device->smgr);
 	  it_player++;
   }
-  RakNet::SystemAddress *addr = NULL;
+  RakNet::SystemAddress addr[42];
   unsigned short conn, i;
-  this->_peer->getPeer()->GetConnectionList(addr, &conn);
   std::vector<Entity *>::const_iterator it = core::getEntitylist().cbegin();
   const rayzal::EntityPacket *ent;
   while (it != core::getEntitylist().cend()) {
     i = 0;
+	conn = 42;
 	std::cout << "lolol" << std::endl;
-    while (i < conn) {
+	std::cout << this->_peer->getPeer()->GetConnectionList(addr, &conn) << std::endl;
+	std::cout << conn << " " << addr << std::endl;
+	while (addr && i < conn) {
       ent = (*it)->getPacket();
       this->_peer->sendPacket(ent, addr[i]);
       i++;
