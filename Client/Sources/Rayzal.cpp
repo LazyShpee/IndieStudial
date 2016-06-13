@@ -83,7 +83,7 @@ void rayzal::ListenerThread::loop(void)
 	    foundEnt = false;
 	    while (entIt != core::getEntitylist().end()) {
 			if ((*entIt)->getUUID() == entPacket->uuid) {
-			  std::cout << ">>>>>>> OMG: " << core::getEntitylist().size() << " <<<<<<<" << std::endl;
+			  
 				(*entIt)->applyPacket(entPacket);
 				foundEnt = true;
 				break;
