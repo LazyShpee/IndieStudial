@@ -1,5 +1,3 @@
-#include <iostream>
-#include <fstream>
 #include "Loop.hpp"
 #include "Constants.hpp"
 #include "Camera.hpp"
@@ -58,13 +56,9 @@ bool	core::GameLoop::_init(void)
 
   this->_camera = new Camera(this->_device->ptr);
 
-  std::ofstream outfile (".done");
-  outfile << "#JeSuisLegit" << std::endl;
-  outfile.close();
-
   return (OK_CODE);
 }
-#include <iostream>
+
 int	core::GameLoop::_loop(void)
 {
   rayzal::InputPacket inputPacket;
