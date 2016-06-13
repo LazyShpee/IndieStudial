@@ -25,11 +25,11 @@ int core::Instance::loop(void)
   this->_before = now;
   rayzal::ListenerThread::mutex.lock();
   // INSERER ICI LE CODE QUI VA ITERATE DANS core::Instance::PlayerList et faire .update(dt)
-  std::vector<Player*>::const_iterator it = core::Instance::PlayerList.cbegin();
-  while (it != core::Instance::PlayerList.cend())
+  std::vector<Player*>::const_iterator it2 = core::Instance::PlayerList.cbegin();
+  while (it2 != core::Instance::PlayerList.cend())
   {
-	  (*it)->update(dt);
-	  it++;
+	  (*it2)->update(dt, this->_device->smgr);
+	  it2++;
   }
   RakNet::SystemAddress *addr = NULL;
   unsigned short conn, i;

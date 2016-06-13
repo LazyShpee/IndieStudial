@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcx
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Launcher", "Launcher\Launcher.vbproj", "{ACB4A56F-BAEA-4660-ADE4-A1C2BB08F81B}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LauncherInstaller", "LauncherInstaller\LauncherInstaller.vdproj", "{172B233F-D644-4880-808B-19425FB1A3D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,12 @@ Global
 		{ACB4A56F-BAEA-4660-ADE4-A1C2BB08F81B}.Release|x64.Build.0 = Release|Any CPU
 		{ACB4A56F-BAEA-4660-ADE4-A1C2BB08F81B}.Release|x86.ActiveCfg = Release|Any CPU
 		{ACB4A56F-BAEA-4660-ADE4-A1C2BB08F81B}.Release|x86.Build.0 = Release|Any CPU
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Debug|Any CPU.ActiveCfg = Debug
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Debug|x64.ActiveCfg = Debug
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Debug|x86.ActiveCfg = Debug
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Release|Any CPU.ActiveCfg = Release
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Release|x64.ActiveCfg = Release
+		{172B233F-D644-4880-808B-19425FB1A3D2}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
