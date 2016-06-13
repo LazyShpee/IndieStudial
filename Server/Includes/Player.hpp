@@ -25,9 +25,10 @@ public:
   Player(irr::u32 uuid, iscene::ISceneManager *);
   ~Player();
 
-  void update(irr::f32 dt);
+  void update(irr::f32 dt, iscene::ISceneManager *smgr);
 
-  void setCollisions(iscene::ISceneManager* &smgr);
+  void setCollisions(iscene::ISceneManager *smgr);
+  void redoCollisions(iscene::ISceneManager *smgr);
 
   Entity *getEntity() const;
   void setInput(irr::u32 const input);

@@ -26,7 +26,7 @@ Entity * Player::getEntity() const {
 	return this->entity;
 }
 
-void Player::update(irr::f32 dt)
+void Player::update(irr::f32 dt, iscene::ISceneManager *smgr)
 {
 	iscene::IAnimatedMeshSceneNode *node = this->entity->getNode();
 	icore::vector3df pos = node->getPosition();
@@ -70,7 +70,14 @@ void Player::update(irr::f32 dt)
 		fire_blipblipblipblipblip();
 }
 
-void					Player::setCollisions(iscene::ISceneManager* &smgr)
+void					Player::redoCollisions(iscene::ISceneManager *smgr)
+{
+	this->entity->getNode()->removeAnimators();
+	this->entity->getWorldCollision().clear();
+	this->setCollisions(smgr);
+}
+
+void					Player::setCollisions(iscene::ISceneManager *smgr)
 {
 	//Ce que jeune poney a changé
 	icore::array<irr::scene::ISceneNode*>	nodes;
@@ -120,52 +127,6 @@ void					Player::setCollisions(iscene::ISceneManager* &smgr)
 			}
 		}
 	}
-	/*iscene::IMetaTriangleSelector*			meta = smgr->createMetaTriangleSelector(); // Hold several triangles at a time
-	icore::array<iscene::ISceneNode*>	nodes;
-	iscene::ISceneNode *playerNode = this->entity.getNode();
-
-	smgr->getSceneNodesFromType(iscene::ESNT_ANY, nodes); // Find all nodes
-
-	for (irr::u32 i = 0; i < nodes.size(); ++i)
-	{
-		iscene::ISceneNode*			node = nodes[i];
-		iscene::ITriangleSelector*	selector = 0;
-
-		if (node != playerNode)
-		{
-			switch (node->getType())
-			{
-			case iscene::ESNT_ANIMATED_MESH:
-				selector = smgr->createTriangleSelectorFromBoundingBox(node);
-				break;
-
-			case iscene::ESNT_OCTREE:
-				selector = smgr->createOctreeTriangleSelector(((iscene::IMeshSceneNode*)node)->getMesh(), node);
-				break;
-
-			default:
-				break;
-			}
-
-			if (selector)
-			{
-				// Add selector to the meta then drop it *DUBSTEP INTENSIFIES*
-				meta->addTriangleSelector(selector);
-				selector->drop();
-			}
-		}
-	}
-
-	if (meta)
-	{
-		iscene::ISceneNodeAnimator* anim = smgr->createCollisionResponseAnimator(
-			meta, playerNode, playerNode->getTransformedBoundingBox().getExtent(),
-			icore::vector3df(0, -5.f, 0));
-		meta->drop();
-
-		playerNode->addAnimator(anim);
-		anim->drop();
-	}*/
 }
 
 // Ce que charpe à rajouter
