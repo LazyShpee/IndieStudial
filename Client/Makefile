@@ -67,6 +67,19 @@ debug:		$(OBJ_DEBUG)
 		echo === $@ EXECUTION COMPLETE ===
 
 #
+# installation rule
+#
+install:	re
+		mkdir -p ~/SuckMyWheels
+		cp -r ../Assets ~/SuckMyWheels
+		cp ./client ~/SuckMyWheels/SuckMyWheels
+		cp ../Assets/SuckMyWheels.desktop ~/.local/share/applications/
+
+uninstall:
+		rm -rfv ~/SuckMyWheels
+		rm -fv ~/.local/share/applications/SuckMyWheels.desktop
+
+#
 # clean rules
 #
 RM :=		rm -fv
