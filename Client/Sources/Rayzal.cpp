@@ -35,11 +35,13 @@ void rayzal::ListenerThread::loop(void)
   bool foundEnt;
   int i;
 
-  irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice(irrklang::ESOD_CORE_AUDIO);
+  irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
   soundNode = new CIrrKlangSceneNode(soundEngine, _smgr->getRootSceneNode(), _smgr, 666);
   soundNode->setSoundFileName(SoundDescription[1].soundPath);
   soundNode->setMinMaxSoundDistance(30.0f);
   soundNode->setLoopingStreamMode();
+
+  std::cout << "omg" << std::endl;
 
   while (this->wait_connection() != ERROR_CODE)
     if ((packet = this->_peer->receive()))

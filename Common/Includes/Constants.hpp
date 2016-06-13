@@ -12,7 +12,7 @@
 # include <cmath>
 
 # ifdef _WIN32
-#  define ASSETS_DIR "../../Assets"
+#  define ASSETS_DIR "../Assets"
 #  define SLEEP(ms) Sleep(ms) 
 # else
 #  include <unistd.h>

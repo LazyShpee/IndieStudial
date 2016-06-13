@@ -54,7 +54,7 @@ bool	core::GameLoop::_init(void)
 	  }
   }
 
-  this->_player = new Entity(/*core::selfInfo.car_model*/42, core::selfInfo.uuid, this->_device->smgr);
+  this->_player = new Entity(/*core::selfInfo.car_model*/40, core::selfInfo.uuid, this->_device->smgr);
 
   this->_camera = new Camera(this->_device->ptr);
 
