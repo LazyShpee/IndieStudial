@@ -72,9 +72,9 @@ namespace rayzal
   {
     char nick[SHORT_BUFFER];
     int life;
-    irr::u32 car_model[SHORT_BUFFER];
+    irr::u32 car_model;
     char car_name[SHORT_BUFFER];
-    char car_desc[1024];
+    char car_desc[LONG_BUFFER];
   };
 #pragma pack(pop)
 

@@ -11,6 +11,8 @@ core::Instance::Instance(core::device_t *device, rayzal::Peer *peer)
 
 bool core::Instance::init(void)
 {
+	iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
+	iscene::IMeshSceneNode			*map_node = 0;
   // INSERER ICI LA LOADATION DES MESH ET DES COLLISIONS
   this->_before = this->_device->ptr->getTimer()->getTime();
   return (OK_CODE);
@@ -19,11 +21,16 @@ bool core::Instance::init(void)
 int core::Instance::loop(void)
 {
   const irr::u32 now = this->_device->ptr->getTimer()->getTime();
-  // const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f;
+  const irr::f32 dt = (irr::f32)(now - this->_before) / 1000.f;
   this->_before = now;
-
+  rayzal::ListenerThread::mutex.lock();
   // INSERER ICI LE CODE QUI VA ITERATE DANS core::Instance::PlayerList et faire .update(dt)
-
+  std::vector<Player*>::const_iterator it = core::Instance::PlayerList.cbegin();
+  while (it != core::Instance::PlayerList.cend())
+  {
+	  (*it)->update(dt);
+	  it++;
+  }
   RakNet::SystemAddress *addr = NULL;
   unsigned short conn, i;
   this->_peer->getPeer()->GetConnectionList(addr, &conn);
@@ -39,7 +46,7 @@ int core::Instance::loop(void)
     it++;
   }
 
-  core::EntityList.cbegin();
+  rayzal::ListenerThread::mutex.unlock();
 
   return (OK_CODE);
 }

@@ -19,6 +19,8 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 	}
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
+	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
+	this->node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
 	core::EntityList.push_back(this);
 }
 
@@ -33,6 +35,8 @@ Entity::Entity(rayzal::EntityPacket const *packet, iscene::ISceneManager * smgr)
 	}
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
+	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
+	this->node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
 	core::EntityList.push_back(this);
 }
 

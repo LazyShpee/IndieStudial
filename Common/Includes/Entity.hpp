@@ -14,10 +14,15 @@ struct EntityType {
 
 const EntityType EntityDescription[] =
   {
-    { 0, ASSETS_DIR"/car/Avent.obj" },
-    { 4, ASSETS_DIR"/truck/Truck.obj" },
-    { 5, "mesh_missile.obj" },
-    { 0, 0 }
+	  { 40, CAR_1 },
+	  { 41, CAR_2 },
+	  { 42, CAR_3 },
+	  { 43, CAR_4 },
+	  { 44, CAR_5 },
+	  { 45, CAR_6 },
+	  { 46, CAR_7 },
+	  { 47, MISSILE_MESH_PATH },
+	{ 0, 0 }
   };
 
 class Entity {

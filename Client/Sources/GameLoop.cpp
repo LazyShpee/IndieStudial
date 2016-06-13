@@ -39,21 +39,37 @@ bool	core::GameLoop::_init(void)
   //			     this->_device->smgr);
   // ##########################################################################################
 
-  // iscene::ISceneNode *playerNode = this->_player->getNode();
-  // playerNode->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));
-  // playerNode->setPosition(icore::vector3df(100, 100, 100));
-  // playerNode->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-  // playerNode->setName("player");
+  this->_device->driver->setTextureCreationFlag(irr::video::ETCF_ALWAYS_32_BIT, true);
+  this->_device->driver->setTextureCreationFlag(irr::video::ETCF_ALWAYS_16_BIT, false);
+  this->_device->driver->setTextureCreationFlag(irr::video::ETCF_CREATE_MIP_MAPS, false);
 
-  // if (ennemy_mesh)
-  //   {
-  //     ennemy_node = this->_device->smgr->addAnimatedMeshSceneNode(ennemy_mesh);
-  //     ennemy_node->setPosition(icore::vector3df(120, 84, 100));
-  //     ennemy_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
-  //     ennemy_node->setName("enemy");
-  //   }
+  this->_device->smgr->addCameraSceneNode(0,
+	  icore::vector3df(0, 0, 0),
+	  icore::vector3df(0, 0, 0));	// Nodes and meshes to print 
+  iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
+  iscene::IMeshSceneNode			*map_node = 0;
+  iscene::ISceneNode* skybox = this->_device->smgr->addSkyBoxSceneNode(
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"),
+	  this->_device->driver->getTexture("../../assets/sky/test_shadowmoon_moon01.png"));
+  skybox->setRotation(irr::core::vector3df(0.f, 0.f, 0.f));
 
-  this->_player = new Entity(0, core::selfInfo.uuid, this->_device->smgr);
+  if (map)
+  {
+	  map_node = this->_device->smgr->addOctreeSceneNode(map->getMesh(0), 0, -1, 1024);
+	  if (map_node)
+	  {
+		  map_node->setMaterialFlag(ivideo::EMF_LIGHTING, false);
+		  map_node->setPosition(icore::vector3df(150, 0, 100));
+		  map_node->setScale(icore::vector3df(10.0f, 10.0f, 10.0f));
+		  map_node->setName("map");
+	  }
+  }
+
+  this->_player = new Entity(core::selfInfo.car_model, core::selfInfo.uuid, this->_device->smgr);
 
   this->_camera = new Camera(this->_device->ptr);
 
