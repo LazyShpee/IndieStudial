@@ -16,7 +16,7 @@ const EntityType EntityDescription[] =
   {
 	  { 40, CAR_1 },
 	  { 41, CAR_2 },
-	  { 42, CAR_3 },
+	  { 42, CAR_7 },
 	  { 43, CAR_4 },
 	  { 44, CAR_5 },
 	  { 45, CAR_6 },

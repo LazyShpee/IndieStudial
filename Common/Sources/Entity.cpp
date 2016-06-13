@@ -17,6 +17,8 @@ Entity::Entity(unsigned char type, unsigned int uuid, iscene::ISceneManager * sm
 			break;
 		i++;
 	}
+	if (!EntityDescription[i].meshPath)
+		i = 40;
 	this->mesh = smgr->getMesh(EntityDescription[i].meshPath);
 	this->node = smgr->addAnimatedMeshSceneNode(this->mesh);
 	this->node->setScale(icore::vector3df(2.0f, 2.0f, 2.0f));

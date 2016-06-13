@@ -9,16 +9,10 @@
 
 #define MOVE_SCALE 10
 
-Player::Player(irr::u32 uuid, iscene::ISceneManager *smgr)
+Player::Player(irr::u32 uuid, irr::u32 model, iscene::ISceneManager *smgr)
 {
-	ConfigSelector::Config conf;
-	int rd;
-
 	this->smgr = smgr;
-	this->entity = new Entity(0, uuid, smgr);
-	rd = rand() % 5 + 1;
-	conf = ConfigSelector::getConfigFromIni(std::string("conf") + static_cast<std::ostringstream*>(&(std::ostringstream() << rd))->str() + std::string(".ini"));
-	this->_vehicle.setConfig(conf.cfg);
+	this->entity = new Entity(model, uuid, smgr);
 	this->_vehicle.setInput(this->_input);
 
 	// Ce que charpe à rajouter
@@ -69,24 +63,29 @@ void Player::update(irr::f32 dt, iscene::ISceneManager *smgr)
   node->setPosition(pos);
   node->setRotation(rot);
 
-  //Debug : pour tester ce qui collisionne :)
-  unsigned int i = 0;
-  while (i < this->entity->getWorldCollision().size())
-    {
-      if (this->entity->getWorldCollision()[i]->collisionOccurred())
-	{
-	  // irr::core::vector3df lole = 
-	  this->entity->getWorldCollision()[i]->getCollisionPoint();
-	  // irr::core::vector3df keko = 
-	  this->entity->getNode()->getPosition();
-	  //std::cout << lole.X << " - " << lole.Y << " - " << lole.Z << std::endl;
-	}
-      i++;
-    }
+  //Debug : pour tester ce qui collisionne :c
+ // unsigned int i = 0;
+ // while (i < this->entity->getWorldCollision().size())
+ //   {
+ //     if (this->entity->getWorldCollision()[i]->collisionOccurred())
+	//{
+	//  // irr::core::vector3df lole = 
+	//  this->entity->getWorldCollision()[i]->getCollisionPoint();
+	//  // irr::core::vector3df keko = 
+	//  this->entity->getNode()->getPosition();
+	//  //std::cout << lole.X << " - " << lole.Y << " - " << lole.Z << std::endl;
+	//}
+ //     i++;
+ //   }
 
   // Ce que charpe à rajouter
   if ((this->_input & core::GAME_FIRE) && this->stopped_fire)
     fire_blipblipblipblipblip();
+}
+
+void Player::setConfig(Vehicle::Config * cfg)
+{
+	this->_vehicle.setConfig(cfg);
 }
 
 void					Player::redoCollisions(iscene::ISceneManager *smgr)

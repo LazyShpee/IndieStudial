@@ -23,10 +23,12 @@ public:
   bool has_missile;
 
 public:
-  Player(irr::u32 uuid, iscene::ISceneManager *);
+  Player(irr::u32 uuid, irr::u32 model, iscene::ISceneManager *);
   ~Player();
 
   void update(irr::f32 dt, iscene::ISceneManager *smgr);
+
+  void setConfig(Vehicle::Config *cfg);
 
   void setCollisions(iscene::ISceneManager *smgr);
   void redoCollisions(iscene::ISceneManager *smgr);

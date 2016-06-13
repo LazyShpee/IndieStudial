@@ -95,7 +95,7 @@ namespace rayzal
   public:
     static std::mutex mutex;
   public:
-    ListenerThread(rayzal::Peer *peer);
+    ListenerThread(rayzal::Peer *peer, iscene::ISceneManager *smgr);
     ListenerThread(iscene::ISceneManager *smgr, rayzal::Peer *peer);
     ~ListenerThread(void);
   private:

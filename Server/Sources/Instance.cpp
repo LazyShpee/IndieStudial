@@ -28,6 +28,8 @@ bool core::Instance::init(void)
   return (OK_CODE);
 }
 
+#include <iostream>
+
 int core::Instance::loop(void)
 {
   const irr::u32 now = this->_device->ptr->getTimer()->getTime();
@@ -48,6 +50,7 @@ int core::Instance::loop(void)
   const rayzal::EntityPacket *ent;
   while (it != core::EntityList.cend()) {
     i = 0;
+	std::cout << "lolol" << std::endl;
     while (i < conn) {
       ent = (*it)->getPacket();
       this->_peer->sendPacket(ent, addr[i]);

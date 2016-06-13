@@ -29,6 +29,7 @@ void rayzal::ListenerThread::loop(void)
 {
   RakNet::Packet *packet;
   rayzal::BasicPacket *basicPacket;
+  rayzal::PlayerInfoPacket pPacket;
   rayzal::EntityPacket *entPacket;
   rayzal::SoundPacket *sndPacket;
   std::vector<Entity *>::iterator entIt;
@@ -41,8 +42,6 @@ void rayzal::ListenerThread::loop(void)
   soundNode->setMinMaxSoundDistance(30.0f);
   soundNode->setLoopingStreamMode();
 
-  std::cout << "omg" << std::endl;
-
   while (this->wait_connection() != ERROR_CODE)
     if ((packet = this->_peer->receive()))
       {
@@ -52,6 +51,7 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_CONNECTION_REQUEST_ACCEPTED:
 	    std::cout << "The connection request has been accepted." << std::endl;
 	    this->_wait = OK_CONNECTION;
+		this->_peer->sendPacket(&(core::selfInfo));
 	    break;
 	  case ID_NO_FREE_INCOMING_CONNECTIONS:
 	    std::cout << "No more free connections avalaible in server." << std::endl;
@@ -64,7 +64,6 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_ENTER_GAME:
 	    std::cout << "OMG On entre dans la game." << std::endl;
 	    core::selfInfo.PacketType = ID_PLAYER_INFOS;
-	    memcpy(core::selfInfo.nick, "OMGPLAYER", 10);
 	    core::selfInfo.uuid = 0;
 	    this->_peer->sendPacket(&(core::selfInfo), 0);
 	    this->_wait = OK_CONNECTION;
@@ -72,6 +71,7 @@ void rayzal::ListenerThread::loop(void)
 	  case ID_PLAYER_INFOS:
 	    std::cout << "Quelques infos sur le player." << std::endl;
 	    core::selfInfo = *((rayzal::PlayerInfoPacket*)packet);
+		std::cout << "Got UUID !!" << std::endl;
 	    break;
 	  case ID_GAME_INFOS:
 	    std::cout << "Quelques infos sur la game." << std::endl;

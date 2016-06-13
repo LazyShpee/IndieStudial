@@ -19,7 +19,7 @@ int main()
   device.guienv = device.ptr->getGUIEnvironment();
 
   rayzal::Peer peer(4242);
-  rayzal::ListenerThread listener(&peer);
+  rayzal::ListenerThread listener(&peer, device.smgr);
   core::Instance instance(&device, &peer);
   if (instance.init())
     return (ERROR_CODE);
