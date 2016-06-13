@@ -15,8 +15,8 @@ CXXFLAGS :=	$(addprefix -I ,$(INCDIRS)) -W -Wall -Wextra -Werror -pedantic
 # link options
 #
 LINKER :=	$(CXX)
-LDFLAGS :=
-LDLIBS :=	-l Irrlicht -l RakNetDLL -l pthread
+LDFLAGS :=	-L ../Lib/irrKlang-64bit-1.5.0/bin/linux-gcc-64/
+LDLIBS :=	-l Irrlicht -l RakNetDLL -l pthread -l IrrKlang
 
 #
 # indie binary options
@@ -29,7 +29,8 @@ SRC :=		Main.cpp \
 		GameLoop.cpp \
 		Input.cpp \
 		Rayzal.cpp \
-		Camera.cpp
+		Camera.cpp \
+		irrKlangSceneNode.cpp
 SRC :=		$(foreach var, $(SRC), \
 		$(if $(wildcard $(SRCDIR)/$(var)), $(SRCDIR), $(COMMON_SRCDIR))/$(var))
 OBJ :=		$(SRC:.cpp=.swag)

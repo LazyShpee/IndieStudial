@@ -61,7 +61,7 @@ void CIrrKlangSceneNode::OnAnimate(u32 timeMs)
 
 	// play the sound
 
-	core::vector3df pos = getAbsolutePosition();
+        core::vector3df pos = getAbsolutePosition();
 
 	if (Sound)
 		Sound->setPosition(pos);

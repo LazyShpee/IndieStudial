@@ -1,6 +1,5 @@
 #include "Loop.hpp"
 #include "Constants.hpp"
-#include <string.h>
 
 #ifdef _WIN32
 # pragma comment(lib, "Irrlicht.lib")
@@ -26,13 +25,13 @@ int main(int ac, char **av)
     {
       address = "localhost";
       port = 4242U;
-      strcpy(core::selfInfo.nick, "ta maman");
+      memcpy(core::selfInfo.nick, "ta maman", 9);
     }
   else
     {
       address = *(av + 1);
       port = atoi(*(av + 2));
-      strcpy(core::selfInfo.nick, *(av + 3));
+      memcpy(core::selfInfo.nick, *(av + 3), strlen(*(av + 3)));
     }
 
   /* lib and device init */

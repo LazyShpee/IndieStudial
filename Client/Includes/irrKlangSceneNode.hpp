@@ -14,7 +14,11 @@
 // sceneManager->registerSceneNodeFactory(factory);
 // factory->drop();
 
-#include <irrlicht.h>
+#ifdef _WIN32
+# include <irrlicht.h>
+#else
+# include <irrlicht/irrlicht.h>
+#endif
 #include <irrKlang.h>
 using namespace irrklang;
 //! A scene node for  playing 3d audio using the free irrKlang sound engine.
