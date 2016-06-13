@@ -3,15 +3,22 @@
 #include <iostream>
 #include <cmath>
 #include <math.h>
+#include <sstream>
 #include "Instance.hpp"
+#include "ConfigSelector.hpp"
 
 #define MOVE_SCALE 10
 
 Player::Player(irr::u32 uuid, iscene::ISceneManager *smgr)
 {
+	ConfigSelector::Config conf;
+	int rd;
+
 	this->smgr = smgr;
 	this->entity = new Entity(0, uuid, smgr);
-	this->_vehicle.setConfig(Vehicle::getDefaultConfig());
+	rd = rand() % 5 + 1;
+	conf = ConfigSelector::getConfigFromIni(std::string("conf") + static_cast<std::ostringstream*>(&(std::ostringstream() << rd))->str() + std::string(".ini"));
+	this->_vehicle.setConfig(conf.cfg);
 	this->_vehicle.setInput(this->_input);
 
 	// Ce que charpe à rajouter
