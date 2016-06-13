@@ -34,7 +34,7 @@ bool	core::GameLoop::_init(void)
   iscene::IAnimatedMesh			*map = this->_device->smgr->getMesh(MAP_MESH_PATH);
   std::cout << "...................." << std::endl;
   iscene::IMeshSceneNode			*map_node = 0;
-  iscene::ISceneNode* skybox = this->_device->smgr->addSkyBoxSceneNode(
+  /*iscene::ISceneNode* skybox =*/ this->_device->smgr->addSkyBoxSceneNode(
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),
 	  this->_device->driver->getTexture(ASSETS_DIR"/sky/test_shadowmoon_moon01.png"),

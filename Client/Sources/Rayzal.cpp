@@ -78,14 +78,12 @@ void rayzal::ListenerThread::loop(void)
 	    break;
 
 	  case ID_ENTITY:
-	    entPacket = (rayzal::EntityPacket *)packet;
-		std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
+	    entPacket = (rayzal::EntityPacket *)packet->data;
+		// std::cout << "OOOOMG une entité.:" << entPacket->EntityType << std::endl;
 		entIt = core::getEntitylist().begin();
 	    foundEnt = false;
 	    while (entIt != core::getEntitylist().end()) {
-			std::cout << (unsigned int)(*entIt)->getUUID() << " " << entPacket->uuid << std::endl;
 			if ((*entIt)->getUUID() == entPacket->uuid) {
-				std::cout << "APPLIQUEZ" << std::endl;
 				(*entIt)->applyPacket(entPacket);
 				foundEnt = true;
 				break;
@@ -96,7 +94,7 @@ void rayzal::ListenerThread::loop(void)
 	      new Entity(entPacket, this->_smgr);
 	    break;
 	  case ID_DELETE:
-	    basicPacket = (rayzal::BasicPacket *)packet;
+	    basicPacket = (rayzal::BasicPacket *)packet->data;
 	    entIt = core::getEntitylist().begin();
 	    while (entIt != core::getEntitylist().end()) {
 	      if ((*entIt)->getUUID() == basicPacket->uuid) {
@@ -107,7 +105,7 @@ void rayzal::ListenerThread::loop(void)
 	    }
 	    break;
 	  case ID_SOUND:
-		  sndPacket = (rayzal::SoundPacket *)packet;
+		  sndPacket = (rayzal::SoundPacket *)packet->data;
 		  for (i = 0; SoundDescription[i].soundPath != 0 && SoundDescription[i].type != sndPacket->sound_id; i++);
 		  if (SoundDescription[i].soundPath != 0)
 		  {
